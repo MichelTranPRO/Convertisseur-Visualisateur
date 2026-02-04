@@ -28,12 +28,17 @@ JCFLAGS = -d build -sourcepath src
 all: build converter.jar #visualiser.jar
 	@echo "Compilation terminée."
 
+# Manual compilation of the converter files
 
 ${CVBLD}Main.class: ${CVSRC}Main.java ${CVBLD}ImageReader.class
 	${JC} ${JCFLAGS} $<
 
 ${CVBLD}ImageReader.class: ${CVSRC}ImageReader.java
 	${JC} ${JCFLAGS} $<
+
+
+
+# Manual compilation of the visualizer files
 
 
 
