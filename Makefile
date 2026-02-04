@@ -40,10 +40,10 @@ ${CVBLD}ImageReader.class: ${CVSRC}ImageReader.java
 
 
 # jar archives
-converter.jar: ${CVBLD}Main.class
+converter: ${CVBLD}Main.class
 	jar cvfe converter.jar fr.iutfbleau.pif.converter.Main -C build . -C . res
 
-visualizer.jar: ${VZBLD}Main.class
+visualizer: ${VZBLD}Main.class
 	jar cvfe visualizer.jar fr.iutfbleau.pif.visualizer.Main -C build . -C . res 
 
 
