@@ -9,9 +9,15 @@ package fr.iutfbleau.pif.converter;
  */
 
 public class FrequencyTable{
-  private int[][] table = new int[256][]; // On déclare la table de fréquence qui stocke donc des tableaux de RGB
+  private int[][] table = new int[256][256]; // On déclare la table de fréquence qui stocke donc des tableaux de RGB
+  private File
   public FrequencyTable(){
-    this.table = 
+    for(int i = 0; i < 256; i++){
+      for(int y = 0; y < 256; i++){
+        this.table[i][y] = new int[3];
+      }
+    }
   }
-  public add
+  // A faire en 1 ligne d'après Lukas
+  public 
 }

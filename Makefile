@@ -54,7 +54,7 @@ visualizer: ${VZBLD}Main.class
 
 # Programs execution
 runconv: 
-	${JE} -jar converter.jar
+	${JE} -jar converter.jar ${file}
 
 runvisu:
 	${JE} -jar visualizer.jar
