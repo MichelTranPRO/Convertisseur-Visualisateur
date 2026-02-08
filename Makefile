@@ -2,20 +2,29 @@
 JC = javac
 JE = java
 
-COMSRC = src/fr/iutfbleau/
-# COMSRC = common src = files in common between converter and visualizer
+COMSRC = src/fr/iutfbleau/pif/
+# COMSRC = common src = src files in common between converter and visualizer
+
+COMBLD = build/fr/iutfbleau/pif/
+# COMBLD = common files build
+
+
 
 CVSRC = src/fr/iutfbleau/pif/converter/
 # CVSRC = converter src
 
 CVBLD = build/fr/iutfbleau/pif/converter/
-#CVBLD = converter build
+# CVBLD = converter build
+
 
 VZSRC = src/fr/iutfbleau/pif/visualizer/
-# VZSRC = visualiser src
+# VZSRC = visualizer src
 
 VZBLD = build/fr/iutfbleau/pif/visualizer/
 # VZBLD = visualizer build
+
+
+
 
 JCFLAGS = -d build -sourcepath src
 
@@ -25,19 +34,32 @@ JCFLAGS = -d build -sourcepath src
 .PHONY: all runvisu runconv clean 
 
 # First target
-all: build converter.jar #visualiser.jar
+all: build converter.jar #visualizer.jar
 	@echo "Compilation terminée."
+
+
+
+
+# Manual compilation of the common files between converter and visualizer 
+
+${COMBLD}ImageReader.class: ${COMSRC}ImageReader.java
+	${JC} ${JCFLAGS} $<
+
+
+
+
 
 # Manual compilation of the converter files
 
-${CVBLD}Main.class: ${CVSRC}Main.java ${CVBLD}ImageReader.class ${CVBLD}FrequencyTable.class
+${CVBLD}Main.class: ${CVSRC}Main.java ${CVBLD}FrequencyTable.class 
 	${JC} ${JCFLAGS} $<
 
-${CVBLD}ImageReader.class: ${CVSRC}ImageReader.java
-	${JC} ${JCFLAGS} $<
 
 ${CVBLD}FrequencyTable.class: ${CVSRC}FrequencyTable.java
 	${JC} ${JCFLAGS} $<
+
+
+
 
 
 # Manual compilation of the visualizer files
