@@ -19,7 +19,7 @@ public class ImageReader {
 
   public ImageReader(File fileInput) {
     this.fileInput = fileInput;
-    readFileInput(this.fileInput);
+    this.readFileInput(this.fileInput);
   }
 
   public void readFileInput(File file) {

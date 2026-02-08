@@ -30,12 +30,14 @@ all: build converter.jar #visualiser.jar
 
 # Manual compilation of the converter files
 
-${CVBLD}Main.class: ${CVSRC}Main.java ${CVBLD}ImageReader.class
+${CVBLD}Main.class: ${CVSRC}Main.java ${CVBLD}ImageReader.class ${CVBLD}FrequencyTable.class
 	${JC} ${JCFLAGS} $<
 
 ${CVBLD}ImageReader.class: ${CVSRC}ImageReader.java
 	${JC} ${JCFLAGS} $<
 
+${CVBLD}FrequencyTable.class: ${CVSRC}FrequencyTable.java
+	${JC} ${JCFLAGS} $<
 
 
 # Manual compilation of the visualizer files
