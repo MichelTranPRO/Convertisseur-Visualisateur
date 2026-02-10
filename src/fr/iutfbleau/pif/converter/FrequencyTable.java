@@ -42,7 +42,7 @@ public class FrequencyTable{
 
         pixel = image.getRGB(i, j);
 
-        red = (pixel >> 16) & 0xFF;
+        red = (pixel >> 16) & 0xFF; // Décalage à droite puis suppression de la partie non intéressante puis on garde que le premier octet
         green = (pixel >> 8) & 0xFF;
         blue = pixel & 0xFF;
 
