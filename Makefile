@@ -64,7 +64,8 @@ ${CVBLD}FrequencyTable.class: ${CVSRC}FrequencyTable.java
 
 # Manual compilation of the visualizer files
 
-
+${VZBLD}Main.class: ${VZSRC}Main.java ${VZBLD}FrequencyTable.class 
+	${JC} ${JCFLAGS} $<
 
 
 
@@ -81,7 +82,7 @@ runconv:
 	${JE} -jar converter.jar ${file}
 
 runvisu:
-	${JE} -jar visualizer.jar
+	${JE} -jar visualizer.jar 
 
 
 
