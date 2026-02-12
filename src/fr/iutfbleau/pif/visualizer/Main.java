@@ -6,6 +6,7 @@ import javax.swing.JFileChooser;
 public class Main {
     public static void main(String[] args) {
         File file = null;
+
         if(args.length == 1) {
             file = new File(args[0]);
         }else{
@@ -19,6 +20,9 @@ public class Main {
                 System.exit(1);
             }
         }
+
+        FileTreatment treatment = new FileTreatment(file);
+        Frame frame = new Frame(treatment.getDimensionFile());
         
     }
 }
