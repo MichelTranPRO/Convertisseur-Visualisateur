@@ -1,9 +1,9 @@
-// package fr.iutfbleau.pif.visualizer;
+package fr.iutfbleau.pif.visualizer;
 
 import java.io.File;
 import javax.swing.JFileChooser;
 
-public class MainVisualizer {
+public class Main {
     public static void main(String[] args) {
         File file = null;
         if(args.length == 1) {

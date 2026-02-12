@@ -1,3 +1,5 @@
+package fr.iutfbleau.pif.visualizer;
+
 import java.awt.*;
 import javax.swing.*;;
 

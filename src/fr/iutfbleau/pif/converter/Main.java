@@ -2,7 +2,6 @@ package fr.iutfbleau.pif.converter;
 
 import java.io.File;
 import javax.swing.JFileChooser;
-import fr.iutfbleau.pif.ImageReader;
 
 public class Main{
   public static void main(String[] args){

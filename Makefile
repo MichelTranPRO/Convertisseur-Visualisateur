@@ -42,29 +42,31 @@ all: build converter.jar #visualizer.jar
 
 # Manual compilation of the common files between converter and visualizer 
 
-${COMBLD}ImageReader.class: ${COMSRC}ImageReader.java
-	${JC} ${JCFLAGS} $<
-
 
 
 
 
 # Manual compilation of the converter files
 
-${CVBLD}Main.class: ${CVSRC}Main.java ${CVBLD}FrequencyTable.class 
+${CVBLD}Main.class: ${CVSRC}Main.java ${CVBLD}FrequencyTable.class ${CVBLD}ImageReader.class
 	${JC} ${JCFLAGS} $<
 
 
 ${CVBLD}FrequencyTable.class: ${CVSRC}FrequencyTable.java
 	${JC} ${JCFLAGS} $<
 
+${CVBLD}ImageReader.class: ${CVSRC}ImageReader.java
+	${JC} ${JCFLAGS} $<
 
 
 
 
 # Manual compilation of the visualizer files
 
-${VZBLD}Main.class: ${VZSRC}Main.java ${VZBLD}FrequencyTable.class 
+${VZBLD}Main.class: ${VZSRC}Main.java ${VZBLD}Frame.class
+	${JC} ${JCFLAGS} $<
+
+${VZBLD}Frame.class: ${VZSRC}Frame.java
 	${JC} ${JCFLAGS} $<
 
 
@@ -82,7 +84,7 @@ runconv:
 	${JE} -jar converter.jar ${file}
 
 runvisu:
-	${JE} -jar visualizer.jar 
+	${JE} -jar visualizer.jar ${file}
 
 
 

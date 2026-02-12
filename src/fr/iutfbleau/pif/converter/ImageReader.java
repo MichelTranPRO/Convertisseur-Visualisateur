@@ -1,4 +1,4 @@
-package fr.iutfbleau.pif;
+package fr.iutfbleau.pif.converter;
 
 import javax.imageio.*;
 import java.awt.image.*;
