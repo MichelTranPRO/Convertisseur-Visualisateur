@@ -23,7 +23,9 @@ public class Main {
 
         FileTreatment treatment = new FileTreatment(file);
         Frame frame = new Frame(treatment.getDimensionFile());
-        int[] test = treatment.readBody();
+        treatment.filterRGB();
+        treatment.print();
+        // int[] test = treatment.tablesRGB();
         // for (int e : test ){
         //     System.out.println(e);
         // }
