@@ -2,7 +2,6 @@ package fr.iutfbleau.pif.visualizer;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.io.DataInputStream;
@@ -39,13 +38,15 @@ public class FileTreatment {
         this.listRed = new ArrayList<DataColor>();
         this.listGreen = new ArrayList<DataColor>();
         this.listBlue = new ArrayList<DataColor>();
+
         try{
-            this.dataInput = new DataInputStream(new FileInputStream(this.file));            
+            this.dataInput = new DataInputStream(new FileInputStream(this.file));
+            headerTreatment();
+            tablesRGB();
         }catch(FileNotFoundException e){
             System.out.println("No file selected.");
         }
-        headerTreatment();
-        tablesRGB();
+        
     }
 
     private void headerTreatment(){
@@ -64,28 +65,26 @@ public class FileTreatment {
     private void tablesRGB(){ 
         try{
             dataInput.read(bodyByte,0,768);
+            for (int i=0 ; i<256 ; i++){
+                int lenght = bodyByte[i];
+                if (lenght != 0){
+                    listRed.add(new DataColor(i, lenght));
+                }
+            }
+            for (int i=0 ; i<256 ; i++){
+                int lenght = bodyByte[256+i];
+                if (lenght != 0){
+                    listGreen.add(new DataColor(i, lenght));
+                }
+            }
+            for (int i=0 ; i<256 ; i++){
+                int lenght = bodyByte[512+i];
+                if (lenght != 0){
+                    listBlue.add(new DataColor(i, lenght));
+                }
+            }
         }catch(IOException e){
             System.err.println("The first byte cannot be read");
-        }
-        for (int i=0 ; i<256 ; i++){
-            int lenght = bodyByte[i] & 0xFF;
-            if (lenght != 0){
-                listRed.add(new DataColor(i, lenght));
-            }
-        }
-        System.err.println();
-        for (int i=0 ; i<256 ; i++){
-            int lenght = bodyByte[256+i] & 0xFF;
-            if (lenght != 0){
-                listGreen.add(new DataColor(i, lenght));
-            }
-        }
-        System.err.println();
-        for (int i=0 ; i<256 ; i++){
-            int lenght = bodyByte[512+i] & 0xFF;
-            if (lenght != 0){
-                listBlue.add(new DataColor(i, lenght));
-            }
         }
     }
 
@@ -99,28 +98,27 @@ public class FileTreatment {
         Collections.sort(listRed);
         Collections.sort(listGreen);
         Collections.sort(listBlue);
+        canonicalCodes(listRed);
     }
 
+    private void canonicalCodes(List<DataColor> list) {
+        int cumulCode = 0;
+        int currLenght = list.get(0).getLenght();
 
+        for (DataColor dc : list) {
 
-    // public int[] tablesRGB(){ 
-    //     try{
-    //         dataInput.read(bodyByte,0,800);
-    //     }catch(IOException e){
-    //         System.err.println("The first byte cannot be read");
-    //     }
-    //     for (int i=0 ; i<256 ; i++){
-    //         tabRed[i]=bodyByte[i];
-    //     }
-    //     System.err.println();
-    //     for (int i=0 ; i<256 ; i++){
-    //         tabGreen[i]=bodyByte[256+i];
-    //         System.err.println(tabGreen[i]);
-    //     }
-    //     System.err.println();
-    //     for (int i=0 ; i<256 ; i++){
-    //         tabBlue[i]=bodyByte[512+i];
-    //     }
-    //     return tabBlue;
-    // }
+            // si la lenght augmente, on allonge le code binaire
+            while (currLenght < dc.getLenght()) {
+                cumulCode = cumulCode << 1;
+                currLenght++;
+            }
+
+            String binary = Integer.toBinaryString(cumulCode);
+            while (binary.length() < dc.getLenght()) {
+                binary = "0" + binary; // on comble le vide pour obtenir une bonne longueur
+            }
+            dc.setCode(binary);
+            cumulCode++;
+        }
+    }
 }
