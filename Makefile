@@ -69,9 +69,11 @@ ${VZBLD}Main.class: ${VZSRC}Main.java ${VZBLD}FileTreatment.class
 ${VZBLD}Frame.class: ${VZSRC}Frame.java
 	${JC} ${JCFLAGS} $<
 
-${VZBLD}FileTreatment.class: ${VZSRC}FileTreatment.java
+${VZBLD}FileTreatment.class: ${VZSRC}FileTreatment.java ${VZBLD}DataColor.class
 	${JC} ${JCFLAGS} $<
 
+${VZBLD}DataColor.class: ${VZSRC}DataColor.java
+	${JC} ${JCFLAGS} $<
 
 
 # jar archives
