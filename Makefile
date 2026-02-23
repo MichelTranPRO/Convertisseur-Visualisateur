@@ -63,10 +63,10 @@ ${CVBLD}ImageReader.class: ${CVSRC}ImageReader.java
 
 # Manual compilation of the visualizer files
 
-${VZBLD}Main.class: ${VZSRC}Main.java ${VZBLD}FileTreatment.class
+${VZBLD}Main.class: ${VZSRC}Main.java ${VZBLD}FileTreatment.class ${VZBLD}CreateImage.class
 	${JC} ${JCFLAGS} $<
 
-${VZBLD}Frame.class: ${VZSRC}Frame.java
+${VZBLD}CreateImage.class: ${VZSRC}CreateImage.java
 	${JC} ${JCFLAGS} $<
 
 ${VZBLD}FileTreatment.class: ${VZSRC}FileTreatment.java ${VZBLD}DataColor.class
