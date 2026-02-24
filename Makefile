@@ -58,6 +58,11 @@ ${CVBLD}FrequencyTable.class: ${CVSRC}FrequencyTable.java
 ${CVBLD}ImageReader.class: ${CVSRC}ImageReader.java
 	${JC} ${JCFLAGS} $<
 
+${CVBLD}Tree.class: ${CVSRC}Tree.java ${CVBLD}Node.class
+	${JC} ${JCFLAGS} $<
+	
+${CVBLD}Node.class: ${CVSRC}Node.java
+	${JC} ${JCFLAGS} $<
 
 
 

@@ -37,6 +37,8 @@ public class Main{
       table.readImageFillTable(myImage.getImage());
       System.out.println(table);
 
+      new Tree(table);
+
     } else {
       System.out.println("Error: image could not be loaded.");
     }
