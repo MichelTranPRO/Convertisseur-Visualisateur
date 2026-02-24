@@ -8,6 +8,9 @@ import java.util.HashMap;
 
 /**
  * The class <code>CreateImage</code> is responsible for creating an image from a data input stream that goes into it's parameters.
+ * 
+ * @version 1.1
+ * @author Michel TRAN, Rayan BISSON, Emmanuel SRIVASTAVA-TIAMZON
  */
 public class CreateImage {
 
