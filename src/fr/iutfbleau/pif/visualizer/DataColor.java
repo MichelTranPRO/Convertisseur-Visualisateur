@@ -1,9 +1,9 @@
 package fr.iutfbleau.pif.visualizer;
 
 public class DataColor implements Comparable<DataColor>{
-    public int intensity;
-    public int lenght;
-    public String code;
+    private int intensity;
+    private int lenght;
+    private String code;
 
     public DataColor(int intensity, int lenght){
         this.intensity=intensity;
@@ -17,6 +17,10 @@ public class DataColor implements Comparable<DataColor>{
 
     public int getLenght(){
         return this.lenght;
+    }
+
+    public String getCode(){
+        return this.code;
     }
 
     public void setCode(String s){

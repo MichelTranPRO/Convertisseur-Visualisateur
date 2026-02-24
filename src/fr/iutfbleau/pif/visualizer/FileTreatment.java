@@ -1,9 +1,10 @@
 package fr.iutfbleau.pif.visualizer;
 
-import java.awt.Dimension;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.HashMap;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,34 +16,37 @@ public class FileTreatment {
     private File file;
     private DataInputStream dataInput;
     
-    public short[] headerShort;
+    private short[] headerShort;
     private byte[] bodyByte;
-    
-    private int[] tabRed;
-    private int[] tabGreen;
-    private int[] tabBlue;
 
     private List<DataColor> listRed;
     private List<DataColor> listGreen;
     private List<DataColor> listBlue;
+
+    private HashMap<String, Integer> hashRed;
+    private HashMap<String, Integer> hashGreen;
+    private HashMap<String, Integer> hashBlue;
+
     
     public FileTreatment (File file){
         this.file=file;
         this.headerShort = new short[2];
-        this.bodyByte = new byte[1024];
-        
-        this.tabRed = new int[256];
-        this.tabGreen = new int[256];
-        this.tabBlue = new int[256];
+        this.bodyByte = new byte[768];
         
         this.listRed = new ArrayList<DataColor>();
         this.listGreen = new ArrayList<DataColor>();
         this.listBlue = new ArrayList<DataColor>();
 
+        this.hashRed = new HashMap<>();
+        this.hashGreen = new HashMap<>();
+        this.hashBlue = new HashMap<>();
+
         try{
             this.dataInput = new DataInputStream(new FileInputStream(this.file));
             headerTreatment();
             tablesRGB();
+            filterRGB();
+            finalData();
         }catch(FileNotFoundException e){
             System.out.println("No file selected.");
         }
@@ -51,15 +55,11 @@ public class FileTreatment {
 
     private void headerTreatment(){
         try{
-            headerShort[0] = dataInput.readShort();
-            headerShort[1] = dataInput.readShort();
+            headerShort[0] = dataInput.readShort(); // largeur
+            headerShort[1] = dataInput.readShort(); // hauteur
         }catch(IOException e){
             System.err.println("The stream has been closed");
         }
-        
-    }
-    public Dimension getDimensionFile(){
-        return new Dimension((int)headerShort[0],(int)headerShort[1]);
     }
 
     private void tablesRGB(){ 
@@ -88,37 +88,69 @@ public class FileTreatment {
         }
     }
 
-    public void print(){
-        for (DataColor e : listRed){
-            System.out.println(e);
-        }
-    }
-
-    public void filterRGB(){
+    private void filterRGB(){
         Collections.sort(listRed);
         Collections.sort(listGreen);
         Collections.sort(listBlue);
+    }
+
+    private void finalData(){
         canonicalCodes(listRed);
+        for (DataColor element : listRed){
+            hashRed.put(element.getCode(), element.getIntensity());
+        }
+        canonicalCodes(listGreen);
+        for (DataColor element : listGreen){
+            hashGreen.put(element.getCode(), element.getIntensity());
+        }
+        canonicalCodes(listBlue);
+        for (DataColor element : listBlue){
+            hashBlue.put(element.getCode(), element.getIntensity());
+        }
     }
 
     private void canonicalCodes(List<DataColor> list) {
+
         int cumulCode = 0;
         int currLenght = list.get(0).getLenght();
 
-        for (DataColor dc : list) {
-
+        for (DataColor element : list) {
             // si la lenght augmente, on allonge le code binaire
-            while (currLenght < dc.getLenght()) {
+            while (currLenght < element.getLenght()) {
                 cumulCode = cumulCode << 1;
                 currLenght++;
             }
 
             String binary = Integer.toBinaryString(cumulCode);
-            while (binary.length() < dc.getLenght()) {
+            while (binary.length() < element.getLenght()) {
                 binary = "0" + binary; // on comble le vide pour obtenir une bonne longueur
             }
-            dc.setCode(binary);
+            element.setCode(binary);
             cumulCode++;
         }
+    }
+
+    public int getHeigth(){
+        return (int)this.headerShort[1];
+    }
+
+    public int getWidth(){
+        return (int)this.headerShort[0];
+    }
+
+    public HashMap<String,Integer> getHashRed(){
+        return this.hashRed;
+    }
+    
+    public HashMap<String,Integer> getHashGreen(){
+        return this.hashGreen;
+    }
+    
+    public HashMap<String,Integer> getHashBlue(){
+        return this.hashBlue;
+    }
+
+    public DataInputStream getDataInput(){
+        return this.dataInput;
     }
 }
