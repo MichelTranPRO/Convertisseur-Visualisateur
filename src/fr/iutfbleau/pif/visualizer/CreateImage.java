@@ -79,13 +79,14 @@ public class CreateImage {
     }
 
     /**
-     * The method <code>buildImage</code> is used to build the image from the data input stream. It uses the method <code>decodeValue</code> to decode the value of the color and it uses the HashMaps that are passed as parameters to decode the value of the color.
-     * @param w
-     * @param h
-     * @param hashRed
-     * @param hashGreen
-     * @param hashBlue
-     * @return
+     * The method <code>buildImage</code> is used to build the image from the data input stream. 
+     * It uses the method <code>decodeValue</code> to decode the value of the color and it uses the HashMaps that are passed as parameters to decode the value of the color.
+     * @param w is an integer that is used to store the width of the image.
+     * @param h is an integer that is used to store the height of the image.
+     * @param hashRed is a HashMap that is used to decode the value of the red color, it has a String type as key and an Integer type as value.
+     * @param hashGreen is a HashMap that is used to decode the value of the green color, it has a String type as key and an Integer type as value.
+     * @param hashBlue is a HashMap that is used to decode the value of the blue color, it has a String type as key and an Integer type as value.
+     * @return a BufferedImage that is the image that is built from the data input stream.
      * @throws IOException
      */
     public BufferedImage buildImage(int w, int h, HashMap<String, Integer> hashRed
