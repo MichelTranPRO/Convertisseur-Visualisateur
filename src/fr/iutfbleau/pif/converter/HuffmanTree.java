@@ -18,22 +18,17 @@ public class HuffmanTree{
 
     // On ajoute tout les noeuds à la file de priorité
     for(int i = 0; i <= 255; i++){
-      if(color == 0){
-        if(table.getRed(i) != 0){
+      if(color == 0 && table.getRed(i) != 0){
           queue.add(new Node(table.getRed(i), i));
-        }
+      }
+      
+      if(color == 1 && table.getRed(i) != 0){
+          queue.add(new Node(table.getRed(i), i));
       }
 
-      if(color == 1){
-        if(table.getRed(i) != 0){
+      if(color == 2 && table.getRed(i) != 0){
           queue.add(new Node(table.getRed(i), i));
-        }
-      }
-
-      if(color == 2){
-        if(table.getRed(i) != 0){
-          queue.add(new Node(table.getRed(i), i));
-        }
+        
       }
 
     }
