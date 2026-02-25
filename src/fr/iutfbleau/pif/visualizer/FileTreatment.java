@@ -12,33 +12,34 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * The <code>FileTreatment</code> class is responsible for reading and processing the data from a file. 
- * It extracts the header and the body of the file, organizes the color data into lists and hash maps, and provides methods to access this data.
- * The class handles the file input stream and ensures that the data is correctly read and processed so that we can use later in the application.
+ * La classe <code>FileTreatment</code> est responsable pour lire et prendre en compte les données du fichier donné en paramêtre de celui-ci.
+ * Il extrait le header et le body du fichier, organise les données des couleurs en listes et en hash maps, et fournit des méthodes pour accéder à ces données.
+ * Cette classe s'occupe du flux d'entrée du fichier and fais en sorte à ce que ces données soient correctement lu pour pouvoir les utilier plus tard.
  */
 public class FileTreatment {
     
     /**
-     * The file to be processed, the DataInputStream for reading the file data, arrays for storing the header and body data, 
-     * lists for organizing the color data, and hash maps for storing the canonical codes and intensity values for each color.
+     * Ces attributs sont : le fichier qui est pris en compte, le flux d'entrée de données pour lire les données du fichier.
      */
     private File file;
     private DataInputStream dataInput;
     
     /**
-     * The headerShort array is used to store the width and height of the image, while the bodyByte array is used to store the color data for red, green, and blue.
+     * L'attribut headerShort est un tableau qui stocke la largeur et la hauteur du header. 
+     * Tandis que le tableau bodyByte est utilisé pour stocké les données des couleurs rouge, verte et bleu.
      */
     private short[] headerShort;
     private byte[] bodyByte;
 
     /**
-     * The lists for red, green, and blue color data are used to organize the color data based on their intensity and length.
+     * Ces attributs sont des listes pour les données de couleur rouge, vert et bleu, elles sont utilisées pour organiser les données de couleur basé sur leur intensité et leur longueur.
      */
     private List<DataColor> listRed;
     private List<DataColor> listGreen;
     private List<DataColor> listBlue;
 
     /**
+     * Ces attributs sont les Hash Maps pour les données de couleur rouge, vert, et bleu, elles sont utilisées pour stockées le code canonique en tant que clé et la valeur de l'intensité en tant que leur valeur respectives. 
      * The hash maps for red, green, and blue color data are used to store the canonical codes as keys and their corresponding intensity values as values.
      */
     private HashMap<String, Integer> hashRed;
@@ -46,8 +47,9 @@ public class FileTreatment {
     private HashMap<String, Integer> hashBlue;
 
     /**
-     * Constructor for the <code>FileTreatment</code> class. It initializes the file and sets up the header and body arrays, as well as the lists and hash maps for the color data. 
-     * @param file the file to be processed
+     * Ceci est le constructeur de la classe <code>FileTreatment</code>. Il initialise le fichier et met en place des tableaux pour l'entête et le corps de celui-ci,
+     * ainsi que les listes et hash map pour les données de couleur.
+     * @param file le fichier qui sera traité.
      */
     public FileTreatment (File file){
         this.file=file;
@@ -75,7 +77,7 @@ public class FileTreatment {
     }
 
     /**
-     * This method reads the header as short of the file and stores the width and height in the headerShort array. It handles any IOException that may occur during the reading process.
+     * Cette méthode lit l'entête en tant que short du fichier et stock la largeur et la hauteur dans l'attribut tableau headerShort. Il s'occupe aussi toutes IOException qui risque d'arriver durant le process de lecture.
      */
     private void headerTreatment(){
         try{
@@ -87,9 +89,8 @@ public class FileTreatment {
     }
 
     /**
-     * This method reads the body of the file, byte by byte, and organizes the color data into three separate lists for red, green, and blue. 
-     * It checks the length of each color data and only adds it to the respective list if the length is not zero. 
-     * It handles any IOException that may occur during the reading process.
+     * Cette méthode lit le corps du fichier bit par bit et organise les données des couleurs en trois listes séparées, rouge, verte et bleu.
+     * Il vérifie la longueur de chaque donnée de couleur et l'ajoute seulement à sa liste respective si sa longueur n'est pas zéro. 
      */
     private void tablesRGB(){ 
         try{
@@ -118,8 +119,8 @@ public class FileTreatment {
     }
 
     /**
-     * This method sorts the lists of red, green, and blue color data based on their intensity. 
-     * It uses the Collections.sort() method to sort each list.
+     * Cette méthode trie les listes de données de couleur basés sur leur intensités. 
+     * Elle utilise la méthode Collections.sort() pour trier chaque liste. 
      */
     private void filterRGB(){
         Collections.sort(listRed);
@@ -128,8 +129,8 @@ public class FileTreatment {
     }
 
     /**
-     * This method generates the canonical codes for each color data in the lists and puts them into the respective hash maps. 
-     * It calls the <code>canonicalCodes</code> method to make the canonical codes.
+     * Cette méthode génère le code canonique de chaque donnée de couleur dans chacune de leurs listes respectives et les rajoute dans leur hashmaps respectives.
+     * Il fait appel à la méthode <code>canonicalCodes</code> pour générer le code canonique.
      */
     private void finalData(){
         canonicalCodes(listRed);
@@ -147,9 +148,9 @@ public class FileTreatment {
     }
 
     /**
-     * This method generates the canonical codes for a list of color data that was put into its parameters.
-     * It iterates through the list and assigns a binary code to each color data based on its length.
-     * @param list the list of color data for which the canonical codes will be generated.
+     * Cette méthode génère le code canonique pour la liste de données de couleur qui a été mis en paramètre.
+     * Il itère dans la liste et assigne un code binaire pour chaque donnée de couleur basé sur leur longueur.
+     * @param list La liste de donnée de couleur sur lequel le code canonique sera généré.
      */
     private void canonicalCodes(List<DataColor> list) {
 
@@ -173,48 +174,48 @@ public class FileTreatment {
     }
 
     /**
-     * Getter for the height of the header.
-     * @return the height of the image as an integer
+     * Getter de la hauteur de l'entête.
+     * @return la hauteur de l'entête en tant qu'int
      */
     public int getHeigth(){
         return (int)this.headerShort[1];
     }
 
     /**
-     * Getter for the width of the header.
-     * @return the width of the image as an integer
+     * Getter pour la largeur de l'entête.
+     * @return la largeur de l'entête en tant qu'int
      */
     public int getWidth(){
         return (int)this.headerShort[0];
     }
 
     /**
-     * Getter for the HashMap of the red color data.
-     * @return the HashMap containing the canonical codes and the intensity values for the red color data
+     * Getter pour le HashMap de les données de couleur rouge.
+     * @return Le HashMap qui contient le code canonique et la valeur de l'intensité pour les données de couleur rouge.
      */
     public HashMap<String,Integer> getHashRed(){
         return this.hashRed;
     }
     
     /**
-     * Getter for the HashMap of the green color data.
-     * @return the HashMap containing the canonical codes and the intensity values for the green color data
+     * Getter pour le HashMap de kes données de couleur verte.
+     * @return Le HashMap qui contient le code canonique et la valeur de l'intensité pour les données de couleur verte.
      */
     public HashMap<String,Integer> getHashGreen(){
         return this.hashGreen;
     }
     
     /**
-     * Getter for the HashMap of the blue color data.
-     * @return the HashMap containing the canonical codes and the intensity values for the blue color data
+     * Getter pour le HashMap de la donnée de couleur bleu.
+     * @return Le HashMap qui contient le code canonique et la valeur de l'intensité pour les données de couleur bleu.
      */
     public HashMap<String,Integer> getHashBlue(){
         return this.hashBlue;
     }
 
     /**
-     * Getter for the DataInputStream of the file.
-     * @return the DataInputStream used to read the file data.
+     * Getter pour le flux d'entrée de donnée du fichier.
+     * @return Le flux d'entrée de donnée utilisé pour lire les données du fichier.
      */
     public DataInputStream getDataInput(){
         return this.dataInput;
