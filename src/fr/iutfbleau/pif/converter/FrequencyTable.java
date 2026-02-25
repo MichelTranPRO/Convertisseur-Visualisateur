@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
  * Comme la table de fréquence stocke la fréquence de valeurs de couleurs allant de 0 à 255, 
  * nous utilisons un simple tableau de 256 valeurs pour tout manipuler.
  * 
+ * @version 1.1
  * @author Rayan Bisson, Michel Tran, Emmanuel Strivastava-Tiamzon
  */
 

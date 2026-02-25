@@ -4,7 +4,7 @@ import javax.imageio.*;
 import java.awt.image.*;
 import java.io.*;
 
-/* 
+/**
  * La classe <code>ImageReader</code> sert à manipuler un fichier qu'on donne dans le constructeur.
  * Cette classe sert principalement à transformer le fichier donné en <code>BufferedImage</code> pour 
  * en faciliter la manipulation
@@ -12,8 +12,7 @@ import java.io.*;
  * 
  * @version 1.1
  * @author Emmanuel SRIVASTAVA-TIAMZON, Michel TRAN, Rayan BISSON
- */ 
-
+ */
 public class ImageReader {
 
   private BufferedImage image;

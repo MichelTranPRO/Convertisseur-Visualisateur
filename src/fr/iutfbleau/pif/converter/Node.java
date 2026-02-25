@@ -41,7 +41,7 @@ public class Node implements Comparable<Node>{
   }
 
 
-  /* 
+  /**
    * On override la méthode pour définir la logique de l'ordre pour la PriorityQueue
    *
    * @return la comparaison des deux fréquences

@@ -38,8 +38,8 @@ public class Main{
       System.out.println(table);
 
       // Partie codage de Huffman
-      Tree tree = new Tree(table);
-      System.out.println(tree.toString());
+      HuffmanTrees trees = new HuffmanTrees(table);
+      System.out.println(trees.toString());
 
     } else {
       System.out.println("Error: image could not be loaded.");
