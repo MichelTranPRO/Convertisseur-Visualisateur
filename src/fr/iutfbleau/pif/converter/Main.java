@@ -37,7 +37,9 @@ public class Main{
       table.readImageFillTable(myImage.getImage());
       System.out.println(table);
 
-      new Tree(table);
+      // Partie codage de Huffman
+      Tree tree = new Tree(table);
+      System.out.println(tree.toString());
 
     } else {
       System.out.println("Error: image could not be loaded.");

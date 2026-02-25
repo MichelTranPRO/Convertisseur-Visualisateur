@@ -54,10 +54,22 @@ public class FrequencyTable{
     }
   }
 
+  public int getRed(int value){
+    return this.table[value][0];
+  }
+
+  public int getGreen(int value){
+    return this.table[value][1];
+  }
+
+  public int getBlue(int value){
+    return this.table[value][2];
+  }
+
   /*
    * Methode toString qui print le beau tableau avec : valeur puis R puis G puis B
    *
-   * @returns un string qui contient tout les éléments;
+   * @return un string qui contient tout les éléments
    */
   @Override
   public String toString(){
