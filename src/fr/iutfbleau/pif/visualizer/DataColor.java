@@ -1,7 +1,7 @@
 package fr.iutfbleau.pif.visualizer;
 
 /**
- * The <code>DataColor</code> class represents the data of a color, its intensity, its length and its code. 
+ * La classe <code>DataColor</code> représente les données d'une, son intensité, sa longueur et son code.
  */
 public class DataColor implements Comparable<DataColor>{
     private int intensity;
@@ -9,9 +9,9 @@ public class DataColor implements Comparable<DataColor>{
     private String code;
 
     /**
-     * Constructor of the class <code>DataColor</code>.
-     * @param intensity implements the intensity of the color.
-     * @param length implements the length of the color.
+     * Constructeur de la classe <code>DataColor</code>.
+     * @param intensity initialise l'intensité de la couleur.
+     * @param length initialise la longueur de la couleur.
      */
     public DataColor(int intensity, int length){
         this.intensity=intensity;
@@ -20,41 +20,41 @@ public class DataColor implements Comparable<DataColor>{
     }
 
     /**
-     * Getter of the intensity of the color.
-     * @return an Integer that represents the intensity of the color.
+     * Getter de l'intensité de la couleur.
+     * @return un entier qui represénte l'intensité de la couleur.
      */
     public int getIntensity(){
         return this.intensity;
     }
 
     /**
-     * Getter of the length of the color.
-     * @return an Integer that represents the length of the color.
+     * Getter de la longueur de la couleur.
+     * @return un entier qui représente la longueur de la couleur.
      */
     public int getLength(){
         return this.length;
     }
 
     /**
-     * Getter of the code of the color.
-     * @return a String that represents the code of the color.
+     * Getter du code de la couleur.
+     * @return un String qui représente le code de la couleur.
      */
     public String getCode(){
         return this.code;
     }
 
     /**
-     * Setter of the code of the color.
-     * @param s a String that represents the code of the color.
+     * Setter du code de la couleur.
+     * @param s Un String qui représente le code de la couleur.
      */
     public void setCode(String s){
         this.code=s;
     }
 
     /**
-     * Override of the method <code>compareTo</code> of the interface <code>Comparable</code>. 
-     * This method is used here to compare two <code>DataColor</code> objects. The length of the element and the intensity of the element are compared to the length and the intensity of the current object.
-     * @return an Integer that represents the result of the comparison. 1 ou -1.
+     * Override de la méthode <code>compareTo</code> de l'interface <code>Comparable</code>. 
+     * Cette méthode est utilisée pour comparer deux objets <code>DataColor</code>. La longueur de l'élément et l'intensité de celui-ci est comparé à la longueur et l'intensité de l'objet courrant.
+     * @return Un entier qui représente le résultat d'une comparaison. 1 ou -1.
      */
     @Override
     public int compareTo(DataColor element){
@@ -77,8 +77,8 @@ public class DataColor implements Comparable<DataColor>{
     }
 
     /**
-     * Override of the method <code>toString</code> of the class <code>Object</code>. This method is used to display the data of the color in a readable way.
-     * @return a String that represents the data of the color. The intensity, the length and the code of the color are displayed.
+     * Override de la méthode <code>toString</code> de la classe <code>Object</code>. Cette méthode est utilisée pour montrer les données de la couleur d'une façon à pouvoir le lire.
+     * @return Un entier qui représente les données de couleur. L'intensité, la longueur et le code de la couleur est affichée.
      */
     @Override
     public String toString(){
