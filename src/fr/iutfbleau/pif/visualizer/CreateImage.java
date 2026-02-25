@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * The class <code>CreateImage</code> is responsible for creating an image from a data input stream that goes into it's parameters.
+ * La classe <code>CreateImage</code> est responsable pour la création d'une image à partir d'un flux d'entrée qui part dans les paramètres de celui-ci.
  * 
  * @version 1.1
  * @author Michel TRAN, Rayan BISSON, Emmanuel SRIVASTAVA-TIAMZON
@@ -15,23 +15,23 @@ import java.util.HashMap;
 public class CreateImage {
 
     /**
-     * This is one of the attributes of the class, it has a DataInputStream type that is used to read the data of the image.
+     * Cette attribut a pour type DataInputStream qui est utilisé pour lire les données de l'image.
      */
     private DataInputStream dataInput;
     
     /**
-     * This is an integer that is used to store the current byte that is being read from the data input stream.
+     * Cette attribut est un entier qui est utilisé pour stocké le bit courant qui est en train d'être lu depuis le flux d'entrée de données.
      */
     private int currentByte;
 
     /**
-     * This is an integer that is used to store the index of the bit.
+     * Ceci est un attribut entier qui est utilisé pour stocké l'index du bit
      */
     private int indexBit;
 
     /**
-     * This is the constructor of the class, it has a DataInputStream type parameter that is used to read the data of the image.
-     * @param dataInput is the data input stream that is used to read the data of the image.
+     * C'est le constructeur de la classe, il possède un paramètre de type DataInputStream qui est utilisé pour lire les données de l'image.
+     * @param dataInput est le flux d'entrée de données utilisé pour lire les données de l'image.
      */
     public CreateImage(DataInputStream dataInput){
         this.dataInput=dataInput;
@@ -40,8 +40,8 @@ public class CreateImage {
     }
 
     /**
-     * The method <code>getBit</code> is used to read the bits from the data input stream. 
-     * @return an Integer that is the value of the bit that is being read from the data input stream.
+     * La méthode <code>getBit</code> est utilisée pour lire les bits du fulux d'entrée de données. 
+     * @return un entier qui est la valeur du bit qui est en train d'être lu par le flux d'entrée de donnée.
      * @throws IOException
      */
     private int getBit() throws IOException{
@@ -56,10 +56,10 @@ public class CreateImage {
     }
 
     /**
-     * The method <code>decodeValue</code> is used to decode the value of the color from the data input stream. 
-     * It uses a HashMap that is passed as a parameter to decode the value of the color.
-     * @param hash is a HashMap that is used to decode the value of the color, it has a String type as key and an Integer type as value.
-     * @return an Integer that is the value of the color that is being decoded.
+     * Cette méthode <code>decodeValue</code> est utilisée pour decoder ma vameir de la couleur du flux d'entrée de donnée.
+     * Il utilise une HashMap qui est passé en paramètre pour decoder la valeur de la couleur.
+     * @param hash est un HashMap qui est utilisé pour decoder la valeur de la couleur, il a une clé de type String et une valeur de type int.
+     * @return un entier qui est la valeur de la couleur qui est en train d'être décoder.
      * @throws IOException
      */
     private int decodeValue(HashMap<String, Integer> hash) throws IOException{
@@ -79,14 +79,14 @@ public class CreateImage {
     }
 
     /**
-     * The method <code>buildImage</code> is used to build the image from the data input stream. 
-     * It uses the method <code>decodeValue</code> to decode the value of the color and it uses the HashMaps that are passed as parameters to decode the value of the color.
-     * @param w is an integer that is used to store the width of the image.
-     * @param h is an integer that is used to store the height of the image.
-     * @param hashRed is a HashMap that is used to decode the value of the red color, it has a String type as key and an Integer type as value.
-     * @param hashGreen is a HashMap that is used to decode the value of the green color, it has a String type as key and an Integer type as value.
-     * @param hashBlue is a HashMap that is used to decode the value of the blue color, it has a String type as key and an Integer type as value.
-     * @return a BufferedImage that is the image that is built from the data input stream.
+     * La méthode <code>buildImage</code> est utilisée pour construire l'image à partir du flux d'entrée de données.
+     * Elle utilise la méthode <code>decodeValue</code> ainsi que les HashMaps passées en paramètres pour décoder la valeur des couleurs.
+     * @param w l'entier représentant la largeur de l'image.
+     * @param h l'entier représentant la hauteur de l'image.
+     * @param hashRed la HashMap utilisée pour décoder la valeur de la couleur rouge (Clé : String, Valeur : Integer).
+     * @param hashGreen la HashMap utilisée pour décoder la valeur de la couleur verte (Clé : String, Valeur : Integer).
+     * @param hashBlue a HashMap utilisée pour décoder la valeur de la couleur bleue (Clé : String, Valeur : Integer).
+     * @return une BufferedImage correspondant à l'image construite à partir du flux de données.
      * @throws IOException
      */
     public BufferedImage buildImage(int w, int h, HashMap<String, Integer> hashRed
