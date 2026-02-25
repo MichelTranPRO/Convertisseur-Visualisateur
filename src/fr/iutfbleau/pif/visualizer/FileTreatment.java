@@ -18,16 +18,29 @@ import java.io.IOException;
  */
 public class FileTreatment {
     
+    /**
+     * The file to be processed, the DataInputStream for reading the file data, arrays for storing the header and body data, 
+     * lists for organizing the color data, and hash maps for storing the canonical codes and intensity values for each color.
+     */
     private File file;
     private DataInputStream dataInput;
     
+    /**
+     * The headerShort array is used to store the width and height of the image, while the bodyByte array is used to store the color data for red, green, and blue.
+     */
     private short[] headerShort;
     private byte[] bodyByte;
 
+    /**
+     * The lists for red, green, and blue color data are used to organize the color data based on their intensity and length.
+     */
     private List<DataColor> listRed;
     private List<DataColor> listGreen;
     private List<DataColor> listBlue;
 
+    /**
+     * The hash maps for red, green, and blue color data are used to store the canonical codes as keys and their corresponding intensity values as values.
+     */
     private HashMap<String, Integer> hashRed;
     private HashMap<String, Integer> hashGreen;
     private HashMap<String, Integer> hashBlue;
