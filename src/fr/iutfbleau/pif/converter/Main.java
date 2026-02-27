@@ -46,9 +46,14 @@ public class Main{
       System.out.println(greentree.toString());
       System.out.println(bluetree.toString());
 
-      CodeTable redtable = new CodeTable(redtree.getRoot());
-      CodeTable greentable = new CodeTable(greentree.getRoot());
-      CodeTable bluetable = new CodeTable(bluetree.getRoot());
+      CodeTable redtable = new CodeTable();
+      redtable.fillTable(redtree.getRoot(), "");
+
+      CodeTable greentable = new CodeTable();
+      greentable.fillTable(greentree.getRoot(), "");
+
+      CodeTable bluetable = new CodeTable();
+      bluetable.fillTable(bluetree.getRoot(), "");
 
     } else {
       System.out.println("Error: image could not be loaded.");

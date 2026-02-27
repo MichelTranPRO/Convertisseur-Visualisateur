@@ -11,21 +11,31 @@ import java.util.HashMap;
 public class CodeTable{
 
   /**
-   * Cet attribut contient le dictionnaire qui contient chaque chemin avec sa valeur associée
+   * Cet attribut contient le dictionnaire qui contient chaque chemin avec sa valeur associée 
    */
   private HashMap<String, Integer> hashcolor = new HashMap<>();
 
-  public CodeTable(Node root){
+  public CodeTable(){
   }
 
   /**
    * La méthode <code>fillTable</code> est une méthode récursive qui parcourt l'arbre et remplit la HashMap
    * 
-   * @param actual le noeud où nous sommes actuellement
-   * @param path le chemin pour accéder à la valeur actuelle
+   * @param actual le noeud où nous sommes actuellement (valeur de départ = root)
+   * @param path le chemin pour accéder à la valeur actuelle (valeur de départ = "")
    */
   public void fillTable(Node actual, String path){
+    int value;
 
+    if((value = actual.getLeftNode().getValue()) != 0)
+      this.hashcolor.put(path, value);
+
+    else if((value = actual.getRightNode().getValue()) != 0)
+      this.hashcolor.put(path, value);
+
+    else{
+      fillTable()
+    }
   }
 
   public HashMap<String, Integer> getHashMap(){

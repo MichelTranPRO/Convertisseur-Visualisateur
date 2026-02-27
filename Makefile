@@ -64,7 +64,7 @@ ${CVBLD}HuffmanTree.class: ${CVSRC}HuffmanTree.java ${CVBLD}Node.class
 ${CVBLD}Node.class: ${CVSRC}Node.java
 	${JC} ${JCFLAGS} $<
 
-${CVBLD}CanonicalTable.java: ${CVSRC}CanonicalTable.java ${CVBLD}Node.class
+${CVBLD}CodeTable.java: ${CVSRC}CodeTable.java ${CVBLD}Node.class
 	${JC} ${JCFLAGS} $<
 
 
