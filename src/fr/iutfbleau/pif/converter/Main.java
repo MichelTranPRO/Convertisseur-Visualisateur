@@ -72,10 +72,15 @@ public class Main{
           //bluetable.getHashMap(),
           //myImage.getHeight(),
           //myImage.getWidth());
-
+      
+      ConverterFrame frame = new ConverterFrame(myImage.getImage(), table, redtable, greentable, bluetable);
+      ConverterController controller = new ConverterController(frame);
+    
     } else {
       System.out.println("Error: image could not be loaded.");
     }
+
+
   }
 }
 
