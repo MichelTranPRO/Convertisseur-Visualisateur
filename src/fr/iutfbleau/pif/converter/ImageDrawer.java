@@ -21,7 +21,19 @@ public class ImageDrawer extends JComponent {
         Graphics secondPinceau = pinceau.create();
 
         if (this.image != null) {
-            secondPinceau.drawImage(this.image, this.offsetX, this.offsetY, this);
+            //Test : secondPinceau.drawImage(this.image, this.offsetX, this.offsetY, this);
+            int drawX = this.offsetX;
+            int drawY = this.offsetY;
+
+            if(this.getWidth() > this.image.getWidth) {
+                drawX = (this.getWidth() - this.image.getWidth()) / 2;
+            }
+
+            if(this.getHeight() > this.image.getHeight) {
+                drawX = (this.getHeight() - this.image.getHeight()) / 2;
+            }
+
+            secondPinceau.drawImage(this.image, drawX, drawY, this);
         }
 
         secondPinceau.dispose();
@@ -40,5 +52,13 @@ public class ImageDrawer extends JComponent {
         } else {
             return super.getPreferredSize();
         }
+    }
+
+    public int getOffsetX() {
+        return this.offsetX;
+    }
+
+    public int getOffsetY() {
+        return this.offsetY;
     }
 }
