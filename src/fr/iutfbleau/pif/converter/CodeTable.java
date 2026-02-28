@@ -84,20 +84,41 @@ public class CodeTable{
     return this.hashcolor;
   }
 
+
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("CodeTable {\n");
+    String result = "CodeTable {\n";
 
-    for (Map.Entry<Integer, Code> entry : hashcanonical.entrySet()){
-      sb.append("  ")
-        .append(entry.getKey())
-        .append(" -> ")
-        .append(entry.getValue())
-        .append("\n");
+    // On copie les clés dans un tableau simple
+    Integer[] keys = hashcanonical.keySet().toArray(new Integer[0]);
+    boolean[] used = new boolean[keys.length];
+
+    for (int i = 0; i < keys.length; i++) {
+
+      int minIndex = -1;
+      int minLength = Integer.MAX_VALUE;
+
+      // chercher l'entrée non utilisée avec la plus petite longueur
+      for (int j = 0; j < keys.length; j++) {
+        if (!used[j]) {
+          int length = hashcanonical.get(keys[j]).toString().length();
+          if (length < minLength) {
+            minLength = length;
+            minIndex = j;
+          }
+        }
+      }
+
+      // marquer comme utilisée
+      used[minIndex] = true;
+
+      result += "  " + keys[minIndex]
+        + " -> "
+        + hashcanonical.get(keys[minIndex])
+        + "\n";
     }
 
-    sb.append("}");
-    return sb.toString();
+    result += "}";
+    return result;
   }
 }
