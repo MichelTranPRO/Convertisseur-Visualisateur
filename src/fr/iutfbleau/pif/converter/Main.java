@@ -35,25 +35,28 @@ public class Main{
       // Partie table de fréquence
       FrequencyTable table = new FrequencyTable();
       table.readImageFillTable(myImage.getImage());
-      System.out.println(table);
+      // System.out.println(table);
 
       // Partie codage de Huffman
       HuffmanTree redtree = new HuffmanTree(table, 0);
       HuffmanTree greentree = new HuffmanTree(table, 1);
       HuffmanTree bluetree = new HuffmanTree(table, 2);
 
-      System.out.println(redtree.toString());
-      System.out.println(greentree.toString());
-      System.out.println(bluetree.toString());
+      //System.out.println(redtree);
+      //System.out.println(greentree);
+      //System.out.println(bluetree);
 
       CodeTable redtable = new CodeTable();
       redtable.fillTable(redtree.getRoot(), "");
+      System.out.println(redtable);
 
       CodeTable greentable = new CodeTable();
       greentable.fillTable(greentree.getRoot(), "");
+      System.out.println(greentable);
 
       CodeTable bluetable = new CodeTable();
       bluetable.fillTable(bluetree.getRoot(), "");
+      System.out.println(bluetable);
 
     } else {
       System.out.println("Error: image could not be loaded.");
