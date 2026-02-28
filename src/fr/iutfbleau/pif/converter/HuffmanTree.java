@@ -7,7 +7,7 @@ public class HuffmanTree{
   private Node root;
 
   /** 
-   * Le constructeur permet de créer trois arbres distincts avec les couleurs R G B selon le codage de Huffman
+   * Le constructeur permet de créer un arbre avec les couleurs R G B selon le codage de Huffman
    *
    * @param table la table de fréquence
    * @param color la composante RGB qu'on veut selectionner dans la table de fréquence
@@ -22,12 +22,12 @@ public class HuffmanTree{
           queue.add(new Node(table.getRed(i), i));
       }
       
-      if(color == 1 && table.getRed(i) != 0){
-          queue.add(new Node(table.getRed(i), i));
+      if(color == 1 && table.getGreen(i) != 0){
+          queue.add(new Node(table.getGreen(i), i));
       }
 
-      if(color == 2 && table.getRed(i) != 0){
-          queue.add(new Node(table.getRed(i), i));
+      if(color == 2 && table.getBlue(i) != 0){
+          queue.add(new Node(table.getBlue(i), i));
         
       }
 

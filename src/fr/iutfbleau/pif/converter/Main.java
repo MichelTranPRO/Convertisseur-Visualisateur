@@ -7,11 +7,14 @@ public class Main{
   public static void main(String[] args){
     
     File file = null;
+    String filename; // Pour la partie écriture du fichier
 
     if(args.length == 1) {
 
       // Partie récupération du fichier
       file = new File(args[0]);
+      filename = args[0];
+      
 
     } else {
       // Partie choix du fichier
@@ -21,6 +24,7 @@ public class Main{
       // Si on a bien choisi quelque chose on récupère le fichier selectionné
       if (result == JFileChooser.APPROVE_OPTION) { 
         file = chooser.getSelectedFile();
+        filename = file.getName();
       } else {
         System.out.println("No file selected.");
         System.exit(1);
@@ -47,16 +51,22 @@ public class Main{
       //System.out.println(bluetree);
 
       CodeTable redtable = new CodeTable();
-      redtable.fillTable(redtree.getRoot(), "");
+      redtable.fillTable(redtree.getRoot(), new Code(0,0));
+      redtable.toCanonical();
       System.out.println(redtable);
 
       CodeTable greentable = new CodeTable();
-      greentable.fillTable(greentree.getRoot(), "");
+      greentable.fillTable(greentree.getRoot(), new Code(0,0));
+      greentable.toCanonical();
       System.out.println(greentable);
 
       CodeTable bluetable = new CodeTable();
-      bluetable.fillTable(bluetree.getRoot(), "");
+      bluetable.fillTable(bluetree.getRoot(), new Code(0, 0));
+      bluetable.toCanonical();
       System.out.println(bluetable);
+
+
+      // Pas oublier d'inclure le filename dans ma méthode
 
     } else {
       System.out.println("Error: image could not be loaded.");
