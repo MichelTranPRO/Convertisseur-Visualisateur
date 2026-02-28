@@ -30,7 +30,7 @@ public class ImageDrawer extends JComponent {
             }
 
             if(this.getHeight() > this.image.getHeight()) {
-                drawX = (this.getHeight() - this.image.getHeight()) / 2;
+                drawY = (this.getHeight() - this.image.getHeight()) / 2;
             }
 
             secondPinceau.drawImage(this.image, drawX, drawY, this);
