@@ -10,6 +10,11 @@ import java.awt.BufferedImage;
  */
 public class ImagePanel extends JPanel {
 	
+	/**
+	 * Constructeur de la classe <code>ImagePanel</code>.
+	 * Assemble le dessinateur d'image et le contrôleur de la souris dans le panneau.
+	 * @param image L'image à afficher et manipuler.
+	 */
 	public ImagePanel(BufferedImage image) {
 		BorderLayout borderLayout = new BorderLayout();
 		this.setLayout(borderLayout);

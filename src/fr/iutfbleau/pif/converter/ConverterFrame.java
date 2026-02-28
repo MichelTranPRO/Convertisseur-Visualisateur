@@ -4,17 +4,43 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * La classe <code>ConverterFrame</code> représente la vue principale de l'application de conversion.
+ * Elle gère l'affichage de l'image, des boutons de navigation et des grilles de données.
+ * @version 1.1
+ * @author Rayan Bisson, Michel Tran, Emmanuel Srivastava-Tiamzon
+ */
 public class ConverterFrame extends JFrame {
 	
+	/** L'image source à afficher dans le panneau central. */
 	private BufferedImage bufferedImage;
+	/** La table des fréquences associée à l'image. */
 	private FrequencyTable frequencyTable;
 
+	/** Le gestionnaire de mise en page pour l'affichage alterné des grilles de couleurs. */
 	private CardLayout cardLayout;
+
+	/** Le conteneur principal des différentes grilles de couleurs. */
 	private JPanel cardsContainer;
+
+	/** Le bouton permettant d'afficher la table du canal rouge. */
 	private JButton btnRed;
+
+	/** Le bouton permettant d'afficher la table du canal vert. */
 	private JButton btnGreen;
+
+	/** Le bouton permettant d'afficher la table du canal bleu. */
 	private JButton btnBlue;
 
+	/**
+	 * Constructeur de la classe <code>ConverterFrame</code>.
+	 * Initialise et assemble tous les composants graphiques de la fenêtre de conversion.
+	 * @param bufferedImage L'image source à afficher.
+	 * @param frequencyTable La table des fréquences calculées pour l'image.
+	 * @param red La table des codes (initiaux et canoniques) pour le canal rouge.
+	 * @param green La table des codes (initiaux et canoniques) pour le canal vert.
+	 * @param blue La table des codes (initiaux et canoniques) pour le canal bleu.
+	 */
 	public ConverterFrame(BufferedImage bufferedImage, FrequencyTable frequencyTable, CodeTable red, CodeTable green, CodeTable blue) {
 		super("Convertisseur pif");
 		
@@ -65,6 +91,13 @@ public class ConverterFrame extends JFrame {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Méthode utilitaire privée pour créer une grille affichant les données d'un canal de couleur.
+	 * @param colorIndex L'index de la couleur (0 = Rouge, 1 = Vert, 2 = Bleu).
+	 * @param frequencyTable La table contenant les fréquences.
+	 * @param codeTable La table contenant les codes initiaux et canoniques.
+	 * @return Un panneau défilant contenant la grille de données formatée.
+	 */
 	private JScrollPane createColorGrid(int colorIndex, FrequencyTable frequencyTable, CodeTable codeTable) {
 		JPanel gridPanel = new JPanel(new GridLayout(0,4,5,2));
 

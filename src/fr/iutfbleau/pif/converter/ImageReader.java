@@ -15,6 +15,7 @@ import java.io.*;
  */
 public class ImageReader {
 
+  /** L'image décodée et chargée en mémoire. */
   private BufferedImage image;
 
   public ImageReader(File file) {
@@ -25,6 +26,10 @@ public class ImageReader {
     }
   }
 
+  /**
+   * Getter pour récupérer l'image chargée.
+   * @return L'objet <code>BufferedImage</code> contenant les données de l'image lue.
+   */
   public BufferedImage getImage() {
     return this.image;
   }
