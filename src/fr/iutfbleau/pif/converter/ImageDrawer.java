@@ -25,11 +25,11 @@ public class ImageDrawer extends JComponent {
             int drawX = this.offsetX;
             int drawY = this.offsetY;
 
-            if(this.getWidth() > this.image.getWidth) {
+            if(this.getWidth() > this.image.getWidth()) {
                 drawX = (this.getWidth() - this.image.getWidth()) / 2;
             }
 
-            if(this.getHeight() > this.image.getHeight) {
+            if(this.getHeight() > this.image.getHeight()) {
                 drawX = (this.getHeight() - this.image.getHeight()) / 2;
             }
 

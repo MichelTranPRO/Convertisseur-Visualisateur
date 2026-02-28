@@ -1,6 +1,8 @@
 package fr.iutfbleau.pif.converter;
 
 import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.BufferedImage;
 
 /**
  * La classe <code>ImagePanel</code> représente un panneau d'affichage d'image dans l'interface graphique de l'application.
@@ -18,7 +20,7 @@ public class ImagePanel extends JPanel {
 		imageDrawer.addMouseListener(mouseListener);
 		imageDrawer.addMouseMotionListener(mouseListener);
 
-		this.add(drawer, BorderLayout.CENTER);
+		this.add(imageDrawer, BorderLayout.CENTER);
 
 	}
 
