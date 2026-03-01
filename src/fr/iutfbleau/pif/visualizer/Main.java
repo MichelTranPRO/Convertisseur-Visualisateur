@@ -19,60 +19,60 @@ import java.awt.Toolkit;
 
 public class Main {
 
-    /**
-     * Constructeur par défaut de la classe Main.
-     */
-    public Main() {
+  /**
+   * Constructeur par défaut de la classe Main.
+   */
+  public Main() {
+  }
+  /**
+   * Méthode principale qui lance l'application.
+   * @param args les arguments de la ligne de commande
+   */
+  public static void main(String[] args) {
+    File file = null;
+    if(args.length == 1) {
+      file = new File(args[0]);
+    }else{
+      JFileChooser chooser = new JFileChooser();
+      int result = chooser.showOpenDialog(null);
+
+      if (result == JFileChooser.APPROVE_OPTION) { 
+        file = chooser.getSelectedFile();
+      } else {
+        System.out.println("No file selected.");
+        System.exit(1);
+      }
     }
-    /**
-     * Méthode principale qui lance l'application.
-     * @param args les arguments de la ligne de commande
-     */
-    public static void main(String[] args) {
-        File file = null;
-        if(args.length == 1) {
-            file = new File(args[0]);
-        }else{
-            JFileChooser chooser = new JFileChooser();
-            int result = chooser.showOpenDialog(null);
+    try{
+      FileTreatment treatment = new FileTreatment(file);
+      CreateImage imgBuilder = new CreateImage(treatment.getDataInput());
+      BufferedImage img = imgBuilder.buildImage(treatment.getWidth()
+          ,treatment.getHeigth()
+          ,treatment.getHashRed()
+          ,treatment.getHashGreen()
+          ,treatment.getHashBlue());
 
-            if (result == JFileChooser.APPROVE_OPTION) { 
-                file = chooser.getSelectedFile();
-            } else {
-                System.out.println("No file selected.");
-                System.exit(1);
-            }
-        }
-        try{
-            FileTreatment treatment = new FileTreatment(file);
-            CreateImage imgBuilder = new CreateImage(treatment.getDataInput());
-            BufferedImage img = imgBuilder.buildImage(treatment.getWidth()
-                                                    ,treatment.getHeigth()
-                                                    ,treatment.getHashRed()
-                                                    ,treatment.getHashGreen()
-                                                    ,treatment.getHashBlue());
+      JFrame frame = new JFrame("Visualiseur PIF");
 
-            JFrame frame = new JFrame("Visualiseur PIF");
-            
 
-            ImageVisualizer visualizer = new ImageVisualizer(img);
-            frame.add(visualizer);
+      ImageVisualizer visualizer = new ImageVisualizer(img);
+      frame.add(visualizer);
 
-            Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-            int w = Math.min(img.getWidth(), (int)(screen.width * 0.95));
-            int h = Math.min(img.getHeight(), (int)(screen.height * 0.95));
+      Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+      int w = Math.min(img.getWidth(), (int)(screen.width * 0.9));
+      int h = Math.min(img.getHeight(), (int)(screen.height * 0.9));
 
-            visualizer.setPreferredSize(new Dimension(w, h));
+      visualizer.setPreferredSize(new Dimension(w, h));
 
-            frame.pack();
-            frame.setResizable(true);
-            frame.setLocationRelativeTo(null);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
+      frame.pack();
+      frame.setResizable(true);
+      frame.setLocationRelativeTo(null);
+      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      frame.setVisible(true);
 
-        } catch (Exception e) {
-            System.err.println("error : " + e.getMessage());
-            e.printStackTrace();
-        }
+    } catch (Exception e) {
+      System.err.println("error : " + e.getMessage());
+      e.printStackTrace();
     }
+  }
 }

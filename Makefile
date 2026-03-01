@@ -79,6 +79,13 @@ ${CVBLD}ConverterController.class: ${CVSRC}ConverterController.java
 ${CVBLD}ConverterFrame.class: ${CVSRC}ConverterFrame.java ${CVBLD}Writer.class
 	${JC} ${JCFLAGS} $<
 
+${CVBLD}ImageDrawer.class: ${CVSRC}ImageDrawer.java
+	${JC} ${JCFLAGS} $<
+
+${CVBLD}ImagePanel.class: ${CVSRC}ImagePanel.java
+	${JC} ${JCFLAGS} $<
+
+
 
 
 # Manual compilation of the visualizer files
