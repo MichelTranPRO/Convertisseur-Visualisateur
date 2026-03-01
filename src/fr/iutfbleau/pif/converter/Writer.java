@@ -106,17 +106,29 @@ public class Writer{
 
           for (Code code : tables) {
 
-            int bits = code.getBits();
             int length = code.getLength();
 
-            // Parcours des bits
-            for (int i = length - 1; i >= 0; i--) {
+            String bits = Integer.toBinaryString(code.getBits());
 
-              currentByte <<= 1; // On libère une place
-              currentByte |= (bits >> i) & 1; // On ajoute 1 bit
+            if (bits.length() < length) {
+              bits = String.format("%" + length + "s", bits).replace(' ', '0');
+            }
+
+            bits.substring(bits.length() - length); // on garde seulement les bits qui nous intéresse,
+                                                    // en gros on enlève tout les 0
+
+
+                                                    // Parcours des bits
+            for (int i = 0; i < bits.length(); i++){
+
+              currentByte <<= 1; // on libère 1 bit de place
               bitCount++; // On incrémente le compteur de bits
 
-              if (bitCount == 8) {
+              if(bits.charAt(i) == '1'){
+                currentByte |= 1; // On met le bit à 1 si nécessaire
+              }
+
+              if (bits.length() == 8) {
                 bos.write(currentByte); // On écrit l'octet actuel
                 currentByte = 0;
                 bitCount = 0;
