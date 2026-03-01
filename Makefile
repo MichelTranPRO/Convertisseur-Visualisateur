@@ -79,7 +79,7 @@ ${CVBLD}Writer.class: ${CVSRC}Writer.java
 
 # Manual compilation of the visualizer files
 
-${VZBLD}Main.class: ${VZSRC}Main.java ${VZBLD}FileTreatment.class ${VZBLD}CreateImage.class
+${VZBLD}Main.class: ${VZSRC}Main.java ${VZBLD}FileTreatment.class ${VZBLD}CreateImage.class ${VZBLD}ImageVisualizer.class
 	${JC} ${JCFLAGS} $<
 
 ${VZBLD}CreateImage.class: ${VZSRC}CreateImage.java
@@ -89,6 +89,15 @@ ${VZBLD}FileTreatment.class: ${VZSRC}FileTreatment.java ${VZBLD}DataColor.class
 	${JC} ${JCFLAGS} $<
 
 ${VZBLD}DataColor.class: ${VZSRC}DataColor.java
+	${JC} ${JCFLAGS} $<
+
+${VZBLD}ControllerMouseClick.class: ${VZSRC}ControllerMouseClick.java
+	${JC} ${JCFLAGS} $<
+
+${VZBLD}ControllerMouseMotion.class: ${VZSRC}ControllerMouseMotion.java ${VZBLD}ControllerMouseClick.class
+	${JC} ${JCFLAGS} $<
+
+${VZBLD}ImageVisualizer.class: ${VZSRC}ImageVisualizer.java ${VZBLD}ControllerMouseMotion.class ${VZBLD}ControllerMouseClick.class
 	${JC} ${JCFLAGS} $<
 
 

@@ -1,10 +1,10 @@
 package fr.iutfbleau.pif.visualizer;
 import java.io.File;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import java.awt.image.BufferedImage;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 /**
  * La classe <code>Main</code> est le point d'entrée de l'application.
@@ -43,14 +43,22 @@ public class Main {
                                                     ,treatment.getHashGreen()
                                                     ,treatment.getHashBlue());
 
-            JFrame frame = new JFrame();
+            JFrame frame = new JFrame("Visualiseur PIF");
+            
+
+            ImageVisualizer visualizer = new ImageVisualizer(img);
+            frame.add(visualizer);
+
+            Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+            int w = Math.min(img.getWidth(), (int)(screen.width * 1));
+            int h = Math.min(img.getHeight(), (int)(screen.height * 0.1));
+
+            visualizer.setPreferredSize(new Dimension(w, h));
+
+            frame.pack();
+            frame.setResizable(true);
+            frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            JLabel labelImg = new JLabel(new ImageIcon(img));
-            frame.add(labelImg); 
-
-            frame.pack(); 
-            frame.setLocationRelativeTo(null);  
             frame.setVisible(true);
 
         } catch (Exception e) {
