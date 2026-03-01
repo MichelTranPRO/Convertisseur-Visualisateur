@@ -1,4 +1,5 @@
 package fr.iutfbleau.pif.visualizer;
+
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -9,12 +10,17 @@ import java.awt.Toolkit;
 /**
  * La classe <code>Main</code> est le point d'entrée de l'application.
  * 
- * @version 1.0
+ * @version 1.1
  * @author Emmanuel Srivastava-Tiamzon, Rayan Bisson et Michel Tran
  */
 
 public class Main {
 
+    /**
+     * Constructeur par défaut de la classe Main.
+     */
+    public Main() {
+    }
     /**
      * Méthode principale qui lance l'application.
      * @param args les arguments de la ligne de commande
@@ -50,8 +56,8 @@ public class Main {
             frame.add(visualizer);
 
             Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-            int w = Math.min(img.getWidth(), (int)(screen.width * 1));
-            int h = Math.min(img.getHeight(), (int)(screen.height * 0.1));
+            int w = Math.min(img.getWidth(), (int)(screen.width * 0.9));
+            int h = Math.min(img.getHeight(), (int)(screen.height * 0.9));
 
             visualizer.setPreferredSize(new Dimension(w, h));
 

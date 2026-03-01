@@ -42,7 +42,7 @@ public class CreateImage {
     /**
      * La méthode <code>getBit</code> est utilisée pour lire les bits du fulux d'entrée de données. 
      * @return un entier qui est la valeur du bit qui est en train d'être lu par le flux d'entrée de donnée.
-     * @throws IOException
+     * @throws IOException si une erreur de lecture se produit lors de la lecture du flux d'entrée de données.
      */
     private int getBit() throws IOException{
             if (indexBit < 0){
@@ -60,7 +60,7 @@ public class CreateImage {
      * Il utilise une HashMap qui est passé en paramètre pour decoder la valeur de la couleur.
      * @param hash est un HashMap qui est utilisé pour decoder la valeur de la couleur, il a une clé de type String et une valeur de type int.
      * @return un entier qui est la valeur de la couleur qui est en train d'être décoder.
-     * @throws IOException
+     * @throws IOException si une erreur de lecture se produit lors de la lecture du flux d'entrée de données.
      */
     private int decodeValue(HashMap<String, Integer> hash) throws IOException{
         Integer intensity=null;
@@ -87,7 +87,7 @@ public class CreateImage {
      * @param hashGreen la HashMap utilisée pour décoder la valeur de la couleur verte (Clé : String, Valeur : Integer).
      * @param hashBlue a HashMap utilisée pour décoder la valeur de la couleur bleue (Clé : String, Valeur : Integer).
      * @return une BufferedImage correspondant à l'image construite à partir du flux de données.
-     * @throws IOException
+     * @throws IOException si une erreur de lecture se produit lors de la lecture du flux d'entrée de données.
      */
     public BufferedImage buildImage(int w, int h, HashMap<String, Integer> hashRed
                                                 , HashMap<String, Integer> hashGreen
