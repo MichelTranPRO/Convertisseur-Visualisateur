@@ -18,6 +18,11 @@ public class ImageReader {
   /** L'image décodée et chargée en mémoire. */
   private BufferedImage image;
 
+  /**
+   * Constructeur qui lit le fichier et le charge en mémoire sous forme de <code>BufferedImage</code>.
+   * 
+   * @param file le fichier image à lire
+   */
   public ImageReader(File file) {
     try {
       this.image = ImageIO.read(file);

@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * La classe <code>CanonicalTables</code> contient la creation et la gestion complète d'une table de codes canoniques
+ * La classe <code>CodeTable</code> contient la création et la gestion
+ * complète d'une table de codes canoniques.
  *
  * @version 1.1
  * @author Rayan Bisson, Michel Tran, Emmanuel Srivastava-Tiamzon
@@ -19,6 +20,9 @@ public class CodeTable{
   private HashMap<Integer, Code> hashcolor = new HashMap<>();
   private HashMap<Integer, Code> hashcanonical = new HashMap<>();
 
+  /**
+   * Constructeur vide.
+   */
   public CodeTable(){
   }
 
@@ -26,7 +30,7 @@ public class CodeTable{
    * La méthode <code>fillTable</code> est une méthode récursive qui parcourt l'arbre et remplit la HashMap
    * 
    * @param actual le noeud où nous sommes actuellement (valeur de départ = root)
-   * @param path le chemin pour accéder à la valeur actuelle (valeur de départ = "")
+   * @param path le code pour accéder à la valeur actuelle (valeur de départ = "")
    */
   public void fillTable(Node actual, Code path){
 
@@ -48,6 +52,18 @@ public class CodeTable{
     // On va à droite = ajouter 1
     Code rightPath = new Code((path.getBits() << 1) | 1, path.getLength() + 1);
     fillTable(actual.getRightNode(), rightPath);
+  }
+
+  /**
+   * Vérifie que la table contient au moins deux symboles.
+   * Sinon, une exception est levée.
+   */
+  public void verifyLength(){
+    if (hashcolor.size() <= 1) {
+      throw new IllegalStateException(
+          "Impossible de générer le fichier .pif : la table contient moins de 2 symboles."
+          );
+    }
   }
 
   /**
@@ -78,17 +94,35 @@ public class CodeTable{
 
       code++; // sinon on ajoute 1 au code canonique du précédent
     }
+
   }
 
+
+  /**
+   * Retourne la table originale des codes (non canoniques).
+   *
+   * @return la table originale des codes (HashMap Integer, Code)
+   */
   public HashMap<Integer, Code> getHashMap(){
     return this.hashcolor;
   }
 
+
+  /**
+   * Retourne la table des codes canoniques.
+   *
+   * @return la table des codes canoniques (HashMap Integer, Code)
+   */
   public HashMap<Integer, Code> getCanonical(){
     return this.hashcanonical;
   }
 
 
+  /**
+   * Retourne la table canonique sous forme de texte.
+   *
+   * @return une chaîne de caractères représentant la table canonique
+   */
   @Override
   public String toString() {
     String result = "CodeTable {\n";

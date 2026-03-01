@@ -2,6 +2,14 @@ package fr.iutfbleau.pif.converter;
 
 import java.util.PriorityQueue;
 
+/**
+ * La classe <code>HuffmanTree</code> permet de créer un arbre de Huffman
+ * pour une composante de couleur (R, G ou B) à partir d'une table de fréquence.
+ * L'arbre peut ensuite être utilisé pour générer les codes de Huffman.
+ * 
+ * @version 1.1
+ * @author Rayan Bisson, Michel Tran, Emmanuel Srivastava-Tiamzon
+ */
 public class HuffmanTree{
 
   private Node root;
@@ -19,16 +27,16 @@ public class HuffmanTree{
     // On ajoute tout les noeuds à la file de priorité
     for(int i = 0; i <= 255; i++){
       if(color == 0 && table.getRed(i) != 0){
-          queue.add(new Node(table.getRed(i), i));
+        queue.add(new Node(table.getRed(i), i));
       }
-      
+
       if(color == 1 && table.getGreen(i) != 0){
-          queue.add(new Node(table.getGreen(i), i));
+        queue.add(new Node(table.getGreen(i), i));
       }
 
       if(color == 2 && table.getBlue(i) != 0){
-          queue.add(new Node(table.getBlue(i), i));
-        
+        queue.add(new Node(table.getBlue(i), i));
+
       }
 
     }
@@ -46,10 +54,20 @@ public class HuffmanTree{
 
   }
 
+  /**
+   * Retourne la racine de l'arbre de Huffman.
+   * 
+   * @return le noeud racine
+   */
   public Node getRoot(){
     return this.root;
   }
 
+  /**
+   * Retourne une représentation textuelle de l'arbre de Huffman.
+   * 
+   * @return un string représentant l'arbre
+   */
   @Override 
   public String toString() 
   { 

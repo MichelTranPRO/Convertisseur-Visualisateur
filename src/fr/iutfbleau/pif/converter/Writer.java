@@ -5,12 +5,37 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import java.io.FileOutputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
 
+/**
+ * La classe <code>Writer</code> permet d'écrire un fichier .pif à partir
+ * des tables de codes et de l'image originale.
+ * Elle gère l'insertion des headers et le codage complet de l'image.
+ * 
+ * @version 1.1
+ * @author Rayan Bisson, Michel Tran, Emmanuel Srivastava-Tiamzon
+ */
 public class Writer{
+
   /**
-   * La méthode writeFile permet de créer et d'insérer les headers et le format complet du fichier .pif
+   * Constructeur par défaut de la classe Writer.
+   * Cette classe ne nécessite pas d'initialisation particulière.
+   */
+  public Writer() {
+  }
+
+  /**
+   * La méthode <code>writeFile</code> permet de créer et d'insérer les headers 
+   * et le format complet du fichier .pif.
    *
    * @param name le nom du fichier pour qu'on le réutilise
+   * @param redtable table de codes pour le canal rouge
+   * @param greentable table de codes pour le canal vert
+   * @param bluetable table de codes pour le canal bleu
+   * @param height hauteur de l'image
+   * @param width largeur de l'image
+   * @param img l'image originale
    */
   static void writeFile(String name, 
       HashMap<Integer, Code> redtable, 
@@ -20,53 +45,50 @@ public class Writer{
       int width,
       BufferedImage img){
 
-    try(FileOutputStream fos = new FileOutputStream(name + ".pif")){
+    File out = new File(name + ".pif");
+    try(FileOutputStream fos = new FileOutputStream(out)){
+      BufferedOutputStream bos = new BufferedOutputStream(fos);
 
-      fos.write((short) height);
-      fos.write((short) width);
+      bos.write((width >> 8) & 0xFF);
+      bos.write(width & 0xFF);
 
+      bos.write((height >> 8) & 0xFF);  // OCtet de poids fort
+      bos.write(height & 0xFF);         // Octet de poids faible
 
 
       for(int i = 0; i < 256 ; i++){
         if(redtable.containsKey(i)){
-          fos.write(redtable.get(i).getLength());
+          bos.write(redtable.get(i).getLength());
         } else{
-          fos.write(0);
+          bos.write(0);
         }
       }
 
 
       for(int i = 0; i < 256 ; i++){
         if(greentable.containsKey(i)){
-          fos.write(greentable.get(i).getLength());
+          bos.write(greentable.get(i).getLength());
         } else{
-          fos.write(0);
+          bos.write(0);
         }
       }
 
 
       for(int i = 0; i < 256 ; i++){
         if(bluetable.containsKey(i)){
-          fos.write(bluetable.get(i).getLength());
+          bos.write(bluetable.get(i).getLength());
         } else{
-          fos.write(0);
+          bos.write(0);
         }
       }
 
 
-      ArrayList<byte[]> segments = new ArrayList<>();
-
-      int size = 1000;
-
-      byte[] buffer = new byte[size];
-      segments.add(buffer);
 
       int currentByte = 0;
       int bitCount = 0;
-      int index = 0;
 
-      for (int x = 0; x < height; x++) {
-        for (int y = 0; y < width; y++) {
+      for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
 
           int pixel = img.getRGB(x, y);
 
@@ -87,22 +109,15 @@ public class Writer{
             int bits = code.getBits();
             int length = code.getLength();
 
-            // On parcours les bits un par un
+            // Parcours des bits
             for (int i = length - 1; i >= 0; i--) {
 
-              currentByte <<= 1;                 // On décale à gauche
-              currentByte |= (bits >> i) & 1;    // On ajoute le nouveau bit
-              bitCount++;
+              currentByte <<= 1; // On libère une place
+              currentByte |= (bits >> i) & 1; // On ajoute 1 bit
+              bitCount++; // On incrémente le compteur de bits
 
               if (bitCount == 8) {
-
-                if (index >= buffer.length) {
-                  buffer = new byte[size];
-                  segments.add(buffer);
-                  index = 0;
-                }
-
-                buffer[index++] = (byte) currentByte;
+                bos.write(currentByte); // On écrit l'octet actuel
                 currentByte = 0;
                 bitCount = 0;
               }
@@ -111,34 +126,20 @@ public class Writer{
         }
       }
 
-      // Pour ce qui reste à la fin
+      // Bits restants dans l'octet qu'on doit finir d'écrire
       if (bitCount > 0) {
         currentByte <<= (8 - bitCount);
-
-        if (index >= buffer.length) {
-          buffer = new byte[size];
-          segments.add(buffer);
-          index = 0;
-        }
-
-        buffer[index++] = (byte) currentByte;
+        bos.write(currentByte);
       }
 
-      // On écrit tout dans le fichier
-      for (int i = 0; i < segments.size(); i++) {
 
-        byte[] segment = segments.get(i);
+      bos.flush();
+      bos.close();
 
-        if (i == segments.size() - 1) {
-          // Dernier segment → écrire seulement la partie remplie
-          fos.write(segment, 0, index);
-        } else {
-          // Segments pleins
-          fos.write(segment);
-        }
-      }
+      fos.close();
+      System.out.println("Ecriture du fichier finie");
     } catch(IOException e){
-      System.out.println("Problème avec l'ouverture du fichier sortie " + e);
+      System.out.println("Problème d'écriture : " + e);
     }
   }
 }

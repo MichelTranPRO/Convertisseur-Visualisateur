@@ -3,7 +3,29 @@ package fr.iutfbleau.pif.converter;
 import java.io.File;
 import javax.swing.JFileChooser;
 
+/**
+ * La classe <code>Main</code> contient le point d'entrée du programme.
+ * Elle permet de sélectionner une image, de créer les tables de fréquence et
+ * les arbres de Huffman pour chaque composante de couleur (R, G, B), puis
+ * de générer les tables de codes et lancer l'interface de conversion.
+ * 
+ * @version 1.1
+ * @author Rayan Bisson, Michel Tran, Emmanuel Srivastava-Tiamzon
+ */
 public class Main{
+
+  /**
+   * Constructeur par défaut de la classe Main.
+   * Initialise le programme et prépare le traitement de l'image.
+   */
+  public Main() {
+  }
+  /**
+   * Point d'entrée du programme.
+   * 
+   * @param args Si un argument est fourni, il correspond au chemin du fichier image.
+   *             Sinon, une boîte de dialogue permet de sélectionner l'image.
+   */
   public static void main(String[] args){
 
     File file = null;
@@ -43,7 +65,7 @@ public class Main{
     ImageReader myImage = new ImageReader(file);
 
     if (myImage.getImage() != null) {
-      System.out.println("The image was successfully loaded !");
+      //System.out.println("The image was successfully loaded !");
 
       // Partie table de fréquence
       FrequencyTable table = new FrequencyTable();
@@ -61,16 +83,19 @@ public class Main{
 
       CodeTable redtable = new CodeTable();
       redtable.fillTable(redtree.getRoot(), new Code(0,0));
+      redtable.verifyLength();
       redtable.toCanonical();
       //System.out.println(redtable);
 
       CodeTable greentable = new CodeTable();
       greentable.fillTable(greentree.getRoot(), new Code(0,0));
+      greentable.verifyLength();
       greentable.toCanonical();
       //System.out.println(greentable);
 
       CodeTable bluetable = new CodeTable();
       bluetable.fillTable(bluetree.getRoot(), new Code(0, 0));
+      bluetable.verifyLength();
       bluetable.toCanonical();
       //System.out.println(bluetable);
 

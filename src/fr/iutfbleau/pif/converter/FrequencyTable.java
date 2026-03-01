@@ -1,6 +1,7 @@
 package fr.iutfbleau.pif.converter;
 
 import java.awt.image.BufferedImage;
+
 /** 
  * La classe <code>FrequencyTable</code> est une classe qui crée une table de fréquence et nous 
  * permet de la manipuler.
@@ -10,13 +11,14 @@ import java.awt.image.BufferedImage;
  * @version 1.1
  * @author Rayan Bisson, Michel Tran, Emmanuel Strivastava-Tiamzon
  */
-
 public class FrequencyTable{
 
   private int[][] table = new int[256][3]; // On déclare la table de fréquence qui stocke donc des tableaux de RGB
 
+  /**
+   * Constructeur qui initialise la table à zéro pour chaque couleur.
+   */
   public FrequencyTable(){
-
     for(int i = 0; i < 256; i++){
       table[i][0] = 0; // R
       table[i][1] = 0; // G
@@ -25,7 +27,7 @@ public class FrequencyTable{
 
   }
 
-  /*
+  /**
    * La méthode <code>readImageFillTable</code> permet de lire l'image octet par octet et de 
    * stocker la fréquence de chaque couleur dans le tableau 
    *
@@ -55,14 +57,32 @@ public class FrequencyTable{
     }
   }
 
+  /**
+   * Retourne la fréquence de la valeur dans le canal rouge.
+   *
+   * @param value la valeur de couleur (0 à 255)
+   * @return la fréquence dans le canal rouge (int)
+   */
   public int getRed(int value){
     return this.table[value][0];
   }
 
+  /**
+   * Retourne la fréquence de la valeur dans le canal vert.
+   *
+   * @param value la valeur de couleur (0 à 255)
+   * @return la fréquence dans le canal vert (int)
+   */
   public int getGreen(int value){
     return this.table[value][1];
   }
 
+  /**
+   * Retourne la fréquence de la valeur dans le canal bleu.
+   *
+   * @param value la valeur de couleur (0 à 255)
+   * @return la fréquence dans le canal bleu (int)
+   */
   public int getBlue(int value){
     return this.table[value][2];
   }
