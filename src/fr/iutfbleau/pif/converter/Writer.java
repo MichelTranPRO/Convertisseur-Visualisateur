@@ -19,7 +19,7 @@ public class Writer{
       int height,
       int width,
       BufferedImage img){
-/**
+
     short headheight = Integer.shortValue(height);
     short headwidth = Integer.shortValue(width);
 
@@ -63,7 +63,6 @@ public class Writer{
     String pixels = "";
     for(int x = 0; x < height; x++){
       for(int y = 0; y < width; y++){
-        //pixels + img.getRGB(x, y);
         int pixel = image.getRGB(x, y);
 
         int redp = (pixel >> 16) & 0xFF; // Décalage à droite puis suppression de la partie non intéressante puis on garde que le premier octet
@@ -71,7 +70,6 @@ public class Writer{
         int bluep = pixel & 0xFF;
       }
     }
-    */
 
 
     try {

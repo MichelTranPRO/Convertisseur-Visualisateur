@@ -13,7 +13,11 @@ public class Main{
 
       // Partie récupération du fichier
       file = new File(args[0]);
-      filename = file.getName().substring(0, filename.lastIndexOf('.'));
+      String filename = file.getName();
+      int dotIndex = filename.lastIndexOf('.'); 
+      if (dotIndex > 0) { 
+        filename = filename.substring(0, dotIndex); 
+      }
 
 
     } else {
@@ -24,7 +28,12 @@ public class Main{
       // Si on a bien choisi quelque chose on récupère le fichier selectionné
       if (result == JFileChooser.APPROVE_OPTION) { 
         file = chooser.getSelectedFile();
-        filename = file.getName().substring(0, filename.lastIndexOf('.'));
+        String filename = file.getName();        // get the full name first
+        int dotIndex = filename.lastIndexOf('.'); 
+        if (dotIndex > 0) {
+          filename = filename.substring(0, dotIndex); 
+        }
+
       } else {
         System.out.println("No file selected.");
         System.exit(1);
@@ -68,15 +77,15 @@ public class Main{
 
       //FileWriter.writeFile(filename,
       //    redtable.getHashMap(),
-        //  greentable.getHashMap(),
-          //bluetable.getHashMap(),
-          //myImage.getHeight(),
-          //myImage.getWidth(),
-          //myImage.getImage());
-      
+      //  greentable.getHashMap(),
+      //bluetable.getHashMap(),
+      //myImage.getHeight(),
+      //myImage.getWidth(),
+      //myImage.getImage());
+
       ConverterFrame frame = new ConverterFrame(myImage.getImage(), table, redtable, greentable, bluetable);
       ConverterController controller = new ConverterController(frame);
-    
+
     } else {
       System.out.println("Error: image could not be loaded.");
     }

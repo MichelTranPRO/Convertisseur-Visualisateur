@@ -120,7 +120,6 @@ javadoc:
 		-encoding UTF-8 -charset UTF-8 -windowtitle "Documentation application convertisseur SAE DEV 3.2"
 	javadoc -d doc/visualizer/ -sourcepath src fr.iutfbleau.pif.visualizer \
 		-encoding UTF-8 -charset UTF-8 -windowtitle "Documentation application visualisateur SAE DEV 3.2"
-	echo "Test a remplir après (mettre le chemin des fichiers à exécuter pour voir la javadoc)"
 
 
 # Compiled files cleaning
