@@ -2,7 +2,7 @@ package fr.iutfbleau.pif.converter;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import java.awt.BufferedImage;
+import java.awt.image.BufferedImage;
 
 /**
  * La classe <code>ImagePanel</code> représente un panneau d'affichage d'image dans l'interface graphique de l'application.

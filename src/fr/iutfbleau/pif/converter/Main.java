@@ -13,7 +13,7 @@ public class Main{
 
       // Partie récupération du fichier
       file = new File(args[0]);
-      filename = file.getName().substring(0, fileName.lastIndexOf('.'));
+      filename = file.getName().substring(0, filename.lastIndexOf('.'));
 
 
     } else {
@@ -24,7 +24,7 @@ public class Main{
       // Si on a bien choisi quelque chose on récupère le fichier selectionné
       if (result == JFileChooser.APPROVE_OPTION) { 
         file = chooser.getSelectedFile();
-        filename = file.getName().substring(0, fileName.lastIndexOf('.'));
+        filename = file.getName().substring(0, filename.lastIndexOf('.'));
       } else {
         System.out.println("No file selected.");
         System.exit(1);
