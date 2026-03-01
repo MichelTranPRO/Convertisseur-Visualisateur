@@ -46,14 +46,14 @@ public class Writer{
       BufferedImage img){
 
     File out = new File(name + ".pif");
-    try(FileOutputStream fos = new FileOutputStream(out)){
-      BufferedOutputStream bos = new BufferedOutputStream(fos);
+    try(FileOutputStream fos = new FileOutputStream(out);
+        BufferedOutputStream bos = new BufferedOutputStream(fos)){
 
-      bos.write((width >> 8) & 0xFF);
-      bos.write(width & 0xFF);
+      bos.write(width >> 8);
+      bos.write(width);
 
-      bos.write((height >> 8) & 0xFF);  // OCtet de poids fort
-      bos.write(height & 0xFF);         // Octet de poids faible
+      bos.write(height >> 8);  // OCtet de poids fort
+      bos.write(height);         // Octet de poids faible
 
 
       for(int i = 0; i < 256 ; i++){
@@ -110,25 +110,25 @@ public class Writer{
 
             String bits = Integer.toBinaryString(code.getBits());
 
-            if (bits.length() < length) {
-              bits = String.format("%" + length + "s", bits).replace(' ', '0');
+            // Pour retrouver le code canonique avec la bonne longueur on rajoute les 0 manquants à gauche
+            while (bits.length() < length) {
+              bits = "0" + bits;
             }
 
-            bits.substring(bits.length() - length); // on garde seulement les bits qui nous intéresse,
-                                                    // en gros on enlève tout les 0
+            //System.out.println("Code original: " + code.getBits() + " | Longueur attendue: " + length + " | String binaire: " + bits);
 
-
-                                                    // Parcours des bits
+                                                          // Parcours des bits
             for (int i = 0; i < bits.length(); i++){
 
               currentByte <<= 1; // on libère 1 bit de place
-              bitCount++; // On incrémente le compteur de bits
+              bitCount++; 
 
               if(bits.charAt(i) == '1'){
                 currentByte |= 1; // On met le bit à 1 si nécessaire
               }
 
-              if (bits.length() == 8) {
+              // Si on a un octet complet qu'on a formé
+              if (bitCount == 8) {
                 bos.write(currentByte); // On écrit l'octet actuel
                 currentByte = 0;
                 bitCount = 0;
@@ -140,7 +140,7 @@ public class Writer{
 
       // Bits restants dans l'octet qu'on doit finir d'écrire
       if (bitCount > 0) {
-        currentByte <<= (8 - bitCount);
+        currentByte <<= (8 - bitCount); // On récupère les bits qu'il nous reste
         bos.write(currentByte);
       }
 

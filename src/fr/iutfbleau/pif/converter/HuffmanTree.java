@@ -76,6 +76,12 @@ public class HuffmanTree{
     return toString(this.root, 0); 
   } 
 
+  /**
+   * Retourne une représentation textuelle du sous-arbre en partant du noeud donné et en mettant 
+   * des indentations pour chaque fils
+   *
+   * @return une chaîne représentant tout l'arbre ; si l'arbre est vide, retourne "Arbre vide"
+   */
   private String toString(Node node, int depth) 
   { 
     if (node == null) return ""; 

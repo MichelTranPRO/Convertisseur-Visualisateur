@@ -46,9 +46,9 @@ public class WriteFileListener implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     Writer.writeFile(
         filename,
-        redTable.getHashMap(),
-        greenTable.getHashMap(),
-        blueTable.getHashMap(),
+        redTable.getCanonical(),
+        greenTable.getCanonical(),
+        blueTable.getCanonical(),
         image.getHeight(),
         image.getWidth(),
         image
