@@ -71,7 +71,8 @@ public class Main{
         //  greentable.getHashMap(),
           //bluetable.getHashMap(),
           //myImage.getHeight(),
-          //myImage.getWidth());
+          //myImage.getWidth(),
+          //myImage.getImage());
       
       ConverterFrame frame = new ConverterFrame(myImage.getImage(), table, redtable, greentable, bluetable);
       ConverterController controller = new ConverterController(frame);

@@ -48,7 +48,7 @@ all: build converter.jar #visualizer.jar
 
 # Manual compilation of the converter files
 
-${CVBLD}Main.class: ${CVSRC}Main.java ${CVBLD}FrequencyTable.class ${CVBLD}ImageReader.class ${CVBLD}HuffmanTree.class ${CVBLD}CodeTable.class ${CVBLD}Code.class
+${CVBLD}Main.class: ${CVSRC}Main.java ${CVBLD}FrequencyTable.class ${CVBLD}ImageReader.class ${CVBLD}HuffmanTree.class ${CVBLD}CodeTable.class ${CVBLD}Code.class ${CVBLD}Writer.class
 	${JC} ${JCFLAGS} $<
 
 
@@ -71,6 +71,9 @@ ${CVBLD}Code.class: ${CVSRC}Code.java
 	${JC} ${JCFLAGS} $<
 
 ${CVBLD}EntryComparator.class: ${CVSRC}EntryComparator.java ${CVBLD}Code.class
+	${JC} ${JCFLAGS} $<
+
+${CVBLD}Writer.class: ${CVSRC}Writer.java
 	${JC} ${JCFLAGS} $<
 
 
