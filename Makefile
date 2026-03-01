@@ -140,8 +140,8 @@ javadoc:
 		-encoding UTF-8 -charset UTF-8 -windowtitle "Documentation application convertisseur SAE DEV 3.2"
 	javadoc -d doc/visualizer/ -sourcepath src fr.iutfbleau.pif.visualizer \
 		-encoding UTF-8 -charset UTF-8 -windowtitle "Documentation application visualisateur SAE DEV 3.2"
-	echo "Javadoc convertisseur : doc/converter/index.html"
-	echo "Javadoc visualisateur : doc/visualizer/index.html"
+	@echo "Javadoc convertisseur : doc/converter/index.html"
+	@echo "Javadoc visualisateur : doc/visualizer/index.html"
 
 
 # Compiled files cleaning
