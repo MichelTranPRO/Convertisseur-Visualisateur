@@ -139,5 +139,5 @@ javadoc:
 
 # Compiled files cleaning
 clean:
-	rm -rf build/ converter.jar visualizer.jar doc/
+	rm -rf build/ converter.jar visualizer.jar doc/ *.pif
 	@echo "Fichiers compilés nettoyés."
