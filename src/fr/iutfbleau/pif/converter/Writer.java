@@ -19,7 +19,7 @@ public class Writer{
       int height,
       int width,
       BufferedImage img){
-
+/**
     short headheight = Integer.shortValue(height);
     short headwidth = Integer.shortValue(width);
 
@@ -70,6 +70,7 @@ public class Writer{
         int bluep = pixel & 0xFF;
       }
     }
+    */
 
 
     try {
