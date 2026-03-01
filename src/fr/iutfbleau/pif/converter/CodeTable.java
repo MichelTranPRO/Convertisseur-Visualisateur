@@ -84,6 +84,10 @@ public class CodeTable{
     return this.hashcolor;
   }
 
+  public HashMap<Integer, Code> getCanonical(){
+    return this.hashcanonical;
+  }
+
 
   @Override
   public String toString() {

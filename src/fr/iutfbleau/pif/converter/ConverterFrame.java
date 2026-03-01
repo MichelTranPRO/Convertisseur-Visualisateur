@@ -127,7 +127,9 @@ public class ConverterFrame extends JFrame {
 				gridPanel.add(new JLabel(""));
 			}
 
-			Code canonique = codeTable.getHashCanonical().get(i);
+      codeTable.toCanonical();
+
+			Code canonique = codeTable.getCanonical().get(i);
 			if(canonique != null) {
 				gridPanel.add(new JLabel(canonique.toString()));
 			} else {
