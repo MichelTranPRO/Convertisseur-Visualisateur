@@ -34,7 +34,7 @@ JCFLAGS = -d build -sourcepath src
 .PHONY: all runvisu runconv clean 
 
 # First target
-all: build converter.jar #visualizer.jar
+all: build converter visualizer
 	@echo "Compilation terminée."
 
 
@@ -103,10 +103,10 @@ ${VZBLD}ImageVisualizer.class: ${VZSRC}ImageVisualizer.java ${VZBLD}ControllerMo
 
 # jar archives
 converter: ${CVBLD}Main.class
-	jar cvfe converter.jar fr.iutfbleau.pif.converter.Main -C build . -C . res
+	jar cvfe converter.jar fr.iutfbleau.pif.converter.Main -C ${CVBLD} .
 
 visualizer: ${VZBLD}Main.class
-	jar cvfe visualizer.jar fr.iutfbleau.pif.visualizer.Main -C build . -C . res 
+	jar cvfe visualizer.jar fr.iutfbleau.pif.visualizer.Main -C ${VZBLD} .
 
 
 # Programs execution
@@ -129,6 +129,8 @@ javadoc:
 		-encoding UTF-8 -charset UTF-8 -windowtitle "Documentation application convertisseur SAE DEV 3.2"
 	javadoc -d doc/visualizer/ -sourcepath src fr.iutfbleau.pif.visualizer \
 		-encoding UTF-8 -charset UTF-8 -windowtitle "Documentation application visualisateur SAE DEV 3.2"
+	echo "Javadoc convertisseur : doc/converter/index.html"
+	echo "Javadoc visualisateur : doc/visualizer/index.html"
 
 
 # Compiled files cleaning
