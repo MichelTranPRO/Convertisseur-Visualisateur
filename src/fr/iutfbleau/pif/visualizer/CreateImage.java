@@ -45,9 +45,13 @@ public class CreateImage {
      * @throws IOException si une erreur de lecture se produit lors de la lecture du flux d'entrée de données.
      */
     private int getBit() throws IOException{
-            if (indexBit < 0){
-                currentByte = dataInput.readUnsignedByte();
-                indexBit=7;
+            if (indexBit < 0) {
+                int nextByte = dataInput.read();
+                if (nextByte == -1) {
+                    return -1; // Signale la fin du fichier
+                }
+                currentByte = nextByte;
+                indexBit = 7;
             }
             int bit = currentByte >> indexBit;
             bit = bit &1 ;
@@ -64,7 +68,7 @@ public class CreateImage {
      */
     private int decodeValue(HashMap<String, Integer> hash) throws IOException{
         Integer intensity=null;
-        String temp="";
+        StringBuilder temp = new StringBuilder();
         int bit;
         while(intensity == null){
             bit=getBit();
@@ -72,8 +76,8 @@ public class CreateImage {
                 throw new IOException("The byte cannot be read");
             }
 
-            temp += bit;
-            intensity = hash.get(temp);
+            temp.append(bit);
+            intensity = hash.get(temp.toString());
         }
         return intensity;
     }

@@ -27,13 +27,23 @@ public class ImageVisualizer extends JComponent {
     private int offsetY = 0;
 
     /**
+     * Le contrôleur pour les événements de clic. 
+     */
+    private ControllerMouseClick ctrlClick;
+
+    /**
+     * Le contrôleur pour les événements de mouvement de la souris.
+     */
+    private ControllerMouseMotion ctrlMouv;
+
+    /**
      * Constructeur de la classe <code>ImageVisualizer</code> qui initialise l'image à afficher et configure les écouteurs de souris pour permettre le déplacement de l'image.
      * @param img L'image à afficher dans le composant.
      */
     public ImageVisualizer(BufferedImage img) {
         this.image = img;
-        ControllerMouseClick ctrlClick = new ControllerMouseClick();
-        ControllerMouseMotion ctrlMouv = new ControllerMouseMotion(this, ctrlClick);
+        ctrlClick = new ControllerMouseClick();
+        ctrlMouv = new ControllerMouseMotion(this, ctrlClick);
 
         this.addMouseListener(ctrlClick);
         this.addMouseMotionListener(ctrlMouv);

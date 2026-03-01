@@ -1,6 +1,9 @@
 package fr.iutfbleau.pif.visualizer;
 
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import java.awt.image.BufferedImage;
@@ -56,8 +59,8 @@ public class Main {
             frame.add(visualizer);
 
             Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-            int w = Math.min(img.getWidth(), (int)(screen.width * 0.9));
-            int h = Math.min(img.getHeight(), (int)(screen.height * 0.9));
+            int w = Math.min(img.getWidth(), (int)(screen.width * 0.95));
+            int h = Math.min(img.getHeight(), (int)(screen.height * 0.95));
 
             visualizer.setPreferredSize(new Dimension(w, h));
 

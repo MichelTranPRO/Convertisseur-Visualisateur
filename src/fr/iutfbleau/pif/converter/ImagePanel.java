@@ -15,13 +15,23 @@ import java.awt.Dimension;
 public class ImagePanel extends JPanel {
 
   /**
+   * Le layout utilisé pour organiser les composants dans le panneau, ainsi que le composant personnalisé <code>ImageDrawer</code> qui est responsable de l'affichage de l'image.
+   */
+  BorderLayout borderLayout;
+
+  /**
+   * Le composant personnalisé <code>ImageDrawer</code> qui est responsable de l'affichage de l'image. Il est ajouté au centre du panneau pour occuper tout l'espace disponible.
+   */
+  ImageDrawer imageDrawer;
+
+  /**
    * Constructeur de la classe <code>ImagePanel</code>.
    * @param image L'image à afficher et manipuler.
    */
   public ImagePanel(BufferedImage image) {
-    BorderLayout borderLayout = new BorderLayout();
+    borderLayout = new BorderLayout();
     this.setLayout(borderLayout);
-    ImageDrawer imageDrawer = new ImageDrawer(image);
+    imageDrawer = new ImageDrawer(image);
     this.add(imageDrawer, BorderLayout.CENTER);
   }
 

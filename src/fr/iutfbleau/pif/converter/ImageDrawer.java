@@ -13,6 +13,58 @@ import javax.swing.JComponent;
  * @author Rayan Bisson, Michel Tran, Emmanuel Srivastava-Tiamzon
  */
 public class ImageDrawer extends JComponent {
+  /**
+   * Les dimensions du panneau et de l'image, ainsi que les dimensions de dessin calculées pour centrer et redimensionner l'image si nécessaire. Les ratios de redimensionnement sont également calculés pour assurer que l'image est affichée correctement sans distorsion.
+   */
+  int panelWidth;
+
+  /**
+   * La hauteur du panneau.
+   */
+  int panelHeight;
+
+  /**
+   * La largeur de l'image source.
+   */
+  int imgWidth;
+
+  /** La hauteur de l'image source. */
+  int imgHeight;
+
+  /**
+   * La largeur et la hauteur de dessin calculées pour centrer et redimensionner l'image si nécessaire. 
+   */
+  int drawWidth;
+
+  /**
+   * La hauteur de dessin calculée pour centrer et redimensionner l'image si nécessaire. 
+   */
+  int drawHeight;
+
+  /**
+   * Les ratios de redimensionnement pour la largeur et la hauteur. 
+   */
+  double widthRatio;
+
+  /**
+   * Le ratio de redimensionnement pour la hauteur. 
+   */
+  double heightRatio;
+
+  /**
+   * Le ratio de redimensionnement final utilisé pour dessiner l'image. 
+  */ 
+  double ratio;
+  
+  /**
+   * Les coordonnées de dessin pour centrer l'image dans le panneau. 
+   */
+  int drawX;
+
+  /**
+   * La coordonnée de dessin verticale pour centrer l'image dans le panneau. 
+   */
+  int drawY;
 
   /** L'image source à dessiner. */
   private BufferedImage image;
@@ -30,21 +82,21 @@ public class ImageDrawer extends JComponent {
     Graphics secondPinceau = pinceau.create();
 
     if (this.image != null) {
-      int panelWidth = this.getWidth();
-      int panelHeight = this.getHeight();
-      int imgWidth = this.image.getWidth();
-      int imgHeight = this.image.getHeight();
+      panelWidth = this.getWidth();
+      panelHeight = this.getHeight();
+      imgWidth = this.image.getWidth();
+      imgHeight = this.image.getHeight();
 
-      int drawWidth = imgWidth;
-      int drawHeight = imgHeight;
+      drawWidth = imgWidth;
+      drawHeight = imgHeight;
 
       if (imgWidth > panelWidth || imgHeight > panelHeight) {
         //ici on calcule le ratio pour pas se rater quand on rétrécit l'image
-        double widthRatio = (double) panelWidth / imgWidth;
-        double heightRatio = (double) panelHeight / imgHeight;
+        widthRatio = (double) panelWidth / imgWidth;
+        heightRatio = (double) panelHeight / imgHeight;
 
         // On prend le ratio le plus petit pour s'assurer que l'image rentre entièrement
-        double ratio = Math.min(widthRatio, heightRatio);
+        ratio = Math.min(widthRatio, heightRatio);
 
         // On applique le ratio aux dimensions de dessin
         drawWidth = (int) (imgWidth * ratio);
@@ -52,8 +104,8 @@ public class ImageDrawer extends JComponent {
       }
 
       //on met l'image au milieu
-      int drawX = (panelWidth - drawWidth) / 2;
-      int drawY = (panelHeight - drawHeight) / 2;
+      drawX = (panelWidth - drawWidth) / 2;
+      drawY = (panelHeight - drawHeight) / 2;
 
       secondPinceau.drawImage(this.image, drawX, drawY, drawWidth, drawHeight, this);
     }

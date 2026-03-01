@@ -96,7 +96,8 @@ public class FileTreatment {
      */
     private void tablesRGB(){ 
         try{
-            dataInput.read(bodyByte,0,768);
+            dataInput.readFully(bodyByte, 0, 768);
+            // dataInput.read(bodyByte,0,768);
             for (int i=0 ; i<256 ; i++){
                 int length = bodyByte[i];
                 if (length != 0){
