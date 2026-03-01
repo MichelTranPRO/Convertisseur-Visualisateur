@@ -9,6 +9,14 @@ doc/
 # Log file
 *.log
 
+# Fichiers temporaires Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Fichiers de métadonnées de Windows (Zone.Identifier)
+*.Zone.Identifier
+
 # BlueJ files
 *.ctxt
 
