@@ -42,7 +42,6 @@ public class FileTreatment {
 
     /**
      * Ces attributs sont les Hash Maps pour les données de couleur rouge, vert, et bleu, elles sont utilisées pour stockées le code canonique en tant que clé et la valeur de l'intensité en tant que leur valeur respectives. 
-     * The hash maps for red, green, and blue color data are used to store the canonical codes as keys and their corresponding intensity values as values.
      */
     private HashMap<String, Integer> hashRed;
     private HashMap<String, Integer> hashGreen;
