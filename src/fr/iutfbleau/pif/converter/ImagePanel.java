@@ -3,6 +3,7 @@ package fr.iutfbleau.pif.converter;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
+import java.awt.Dimension;
 
 /**
  * La classe <code>ImagePanel</code> représente un panneau d'affichage d'image dans l'interface graphique de l'application.
@@ -21,5 +22,8 @@ public class ImagePanel extends JPanel {
 		this.add(imageDrawer, BorderLayout.CENTER);
 	}
 
-    
+	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(400, 400); // Ou une taille par défaut
+	}
 }

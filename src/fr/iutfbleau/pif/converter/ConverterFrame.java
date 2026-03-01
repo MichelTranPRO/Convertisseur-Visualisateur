@@ -54,7 +54,7 @@ public class ConverterFrame extends JFrame {
 		ImagePanel imgPanel = new ImagePanel(this.bufferedImage);
 		this.add(imgPanel, BorderLayout.CENTER);
 
-		JPanel rightPanel = new JPanel(borderLayout);
+		JPanel rightPanel = new JPanel(new BorderLayout());
 		rightPanel.setPreferredSize(new Dimension(450,0));
 
 		JPanel navPanel = new JPanel();
@@ -127,7 +127,7 @@ public class ConverterFrame extends JFrame {
 				gridPanel.add(new JLabel(""));
 			}
 
-      codeTable.toCanonical();
+      
 
 			Code canonique = codeTable.getCanonical().get(i);
 			if(canonique != null) {
@@ -136,8 +136,9 @@ public class ConverterFrame extends JFrame {
 				gridPanel.add(new JLabel(""));
 			}
 		}
-
-		return new JScrollPane(gridPanel);
+		JScrollPane temp = new JScrollPane(gridPanel);
+		temp.getVerticalScrollBar().setUnitIncrement(500);
+		return temp;
 	}
 
 	/**

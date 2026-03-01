@@ -15,6 +15,8 @@ import java.io.IOException;
  * La classe <code>FileTreatment</code> est responsable pour lire et prendre en compte les données du fichier donné en paramêtre de celui-ci.
  * Il extrait le header et le body du fichier, organise les données des couleurs en listes et en hash maps, et fournit des méthodes pour accéder à ces données.
  * Cette classe s'occupe du flux d'entrée du fichier and fais en sorte à ce que ces données soient correctement lu pour pouvoir les utilier plus tard.
+ * @version 1.1
+ * @author Michel TRAN, Rayan BISSON, Emmanuel SRIVASTAVA-TIAMZON
  */
 public class FileTreatment {
     

@@ -2,6 +2,8 @@ package fr.iutfbleau.pif.visualizer;
 
 /**
  * La classe <code>DataColor</code> représente les données d'une, son intensité, sa longueur et son code.
+ * @version 1.1
+ * @author Michel TRAN, Rayan BISSON, Emmanuel SRIVASTAVA-TIAMZON
  */
 public class DataColor implements Comparable<DataColor>{
     private int intensity;

@@ -27,7 +27,7 @@ public class ImageDrawer extends JComponent {
     @Override
     public void paintComponent(Graphics pinceau) {
         Graphics secondPinceau = pinceau.create();
-
+        
         if (this.image != null) {
             int panelWidth = this.getWidth();
             int panelHeight = this.getHeight();

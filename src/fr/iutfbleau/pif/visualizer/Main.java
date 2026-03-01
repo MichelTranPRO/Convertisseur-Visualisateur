@@ -5,8 +5,20 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.image.BufferedImage;
-        
+
+/**
+ * La classe <code>Main</code> est le point d'entrée de l'application.
+ * 
+ * @version 1.0
+ * @author Emmanuel Srivastava-Tiamzon, Rayan Bisson et Michel Tran
+ */
+
 public class Main {
+
+    /**
+     * Méthode principale qui lance l'application.
+     * @param args les arguments de la ligne de commande
+     */
     public static void main(String[] args) {
         File file = null;
         if(args.length == 1) {
