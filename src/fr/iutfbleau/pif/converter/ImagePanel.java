@@ -17,12 +17,12 @@ public class ImagePanel extends JPanel {
   /**
    * Le layout utilisé pour organiser les composants dans le panneau, ainsi que le composant personnalisé <code>ImageDrawer</code> qui est responsable de l'affichage de l'image.
    */
-  BorderLayout borderLayout;
+  private BorderLayout borderLayout;
 
   /**
    * Le composant personnalisé <code>ImageDrawer</code> qui est responsable de l'affichage de l'image. Il est ajouté au centre du panneau pour occuper tout l'espace disponible.
    */
-  ImageDrawer imageDrawer;
+  private ImageDrawer imageDrawer;
 
   /**
    * Constructeur de la classe <code>ImagePanel</code>.

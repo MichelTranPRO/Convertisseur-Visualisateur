@@ -33,6 +33,62 @@ public class ConverterFrame extends JFrame {
   private JButton btnBlue;
 
   /**
+   * Le layout utilisé pour organiser les composants dans la fenêtre.
+   */
+  private BorderLayout borderLayout;
+
+  /**
+   * Le panneau d'affichage de l'image, qui contient le composant personnalisé <code>ImageDrawer</code> chargé de dessiner l'image. 
+   */
+  private ImagePanel imgPanel;
+
+  /**
+   * Le panneau de droite qui contient les boutons de navigation et les grilles de données, 
+   * ainsi que le panneau de navigation lui-même qui contient les boutons pour basculer entre les différentes grilles de couleurs. 
+   */
+  private JPanel rightPanel;
+
+  /**
+   * Le panneau de navigation qui contient les boutons pour basculer entre les différentes grilles de couleurs. 
+   */
+  private JPanel navPanel;
+
+  /**
+   * Le bouton pour écrire le fichier PIF, qui déclenche l'action d'écriture du fichier lorsque l'utilisateur clique dessus. 
+   */
+  private JButton writeButton;
+
+  /**
+   * Le maximum de largeur pour la fenêtre, utilisé pour limiter la taille de la fenêtre lorsque l'image est très grande. 
+   */
+  private int maxWidth; 
+
+  /**
+   * Le maximum de hauteur pour la fenêtre, utilisé pour limiter la taille de la fenêtre lorsque l'image est très grande. 
+   */
+  private int maxHeight;
+
+  /**
+   * La largeur de l'image source . 
+   */
+  private int imgWidth;
+
+  /**
+   * La hauteur de l'image source .
+   */
+  private int imgHeight;
+
+  /**
+   * La largeur idéale pour la fenêtre. 
+   */
+  private int idealWidth;
+
+  /**
+   * La hauteur idéale pour la fenêtre.
+   */
+  private int idealHeight;
+
+  /**
    * Constructeur de la classe <code>ConverterFrame</code>.
    * Initialise et assemble tous les composants graphiques de la fenêtre de conversion.
    * @param bufferedImage L'image source à afficher.
@@ -50,20 +106,20 @@ public class ConverterFrame extends JFrame {
       String filename) {
     super("Convertisseur pif");
 
-    BorderLayout borderLayout = new BorderLayout();
+    borderLayout = new BorderLayout();
     this.setLayout(borderLayout);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     this.bufferedImage = bufferedImage;
     this.frequencyTable = frequencyTable;
 
-    ImagePanel imgPanel = new ImagePanel(this.bufferedImage);
+    imgPanel = new ImagePanel(this.bufferedImage);
     this.add(imgPanel, BorderLayout.CENTER);
 
-    JPanel rightPanel = new JPanel(new BorderLayout());
+    rightPanel = new JPanel(new BorderLayout());
     rightPanel.setPreferredSize(new Dimension(450,0));
 
-    JPanel navPanel = new JPanel();
+    navPanel = new JPanel();
     this.btnRed = new JButton("Rouge");
     this.btnGreen = new JButton("Vert");
     this.btnBlue = new JButton("Bleu");
@@ -81,20 +137,20 @@ public class ConverterFrame extends JFrame {
     rightPanel.add(navPanel, BorderLayout.NORTH);
     rightPanel.add(this.cardsContainer, BorderLayout.CENTER);
 
-    JButton writeButton = new JButton("Écrire le fichier PIF");
+    writeButton = new JButton("Écrire le fichier PIF");
     writeButton.addActionListener(new WriteFileListener(
           filename, red, green, blue, this.bufferedImage
           ));
     rightPanel.add(writeButton, BorderLayout.SOUTH);
     this.add(rightPanel, BorderLayout.EAST);
 
-    int maxWidth = 1200; 
-    int maxHeight = 800;
-    int imgWidth = this.bufferedImage.getWidth();
-    int imgHeight = this.bufferedImage.getHeight();
+    maxWidth = 1200; 
+    maxHeight = 800;
+    imgWidth = this.bufferedImage.getWidth();
+    imgHeight = this.bufferedImage.getHeight();
 
-    int idealWidth = imgWidth + 450 + 20; //On ajoute 450 Pour le tableau à droite
-    int idealHeight = imgHeight + 40;
+    idealWidth = imgWidth + 450 + 20; //On ajoute 450 Pour le tableau à droite
+    idealHeight = imgHeight + 40;
 
     this.setSize(Math.min(idealWidth, maxWidth), Math.min(idealHeight, maxHeight));
     this.setLocationRelativeTo(null);

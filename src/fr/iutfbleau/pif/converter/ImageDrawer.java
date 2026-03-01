@@ -16,55 +16,55 @@ public class ImageDrawer extends JComponent {
   /**
    * Les dimensions du panneau et de l'image, ainsi que les dimensions de dessin calculées pour centrer et redimensionner l'image si nécessaire. Les ratios de redimensionnement sont également calculés pour assurer que l'image est affichée correctement sans distorsion.
    */
-  int panelWidth;
+  private int panelWidth;
 
   /**
    * La hauteur du panneau.
    */
-  int panelHeight;
+  private int panelHeight;
 
   /**
    * La largeur de l'image source.
    */
-  int imgWidth;
+  private int imgWidth;
 
   /** La hauteur de l'image source. */
-  int imgHeight;
+  private int imgHeight;
 
   /**
    * La largeur et la hauteur de dessin calculées pour centrer et redimensionner l'image si nécessaire. 
    */
-  int drawWidth;
+  private int drawWidth;
 
   /**
    * La hauteur de dessin calculée pour centrer et redimensionner l'image si nécessaire. 
    */
-  int drawHeight;
+  private int drawHeight;
 
   /**
    * Les ratios de redimensionnement pour la largeur et la hauteur. 
    */
-  double widthRatio;
+  private double widthRatio;
 
   /**
    * Le ratio de redimensionnement pour la hauteur. 
    */
-  double heightRatio;
+  private double heightRatio;
 
   /**
    * Le ratio de redimensionnement final utilisé pour dessiner l'image. 
   */ 
-  double ratio;
-  
+  private double ratio;
+
   /**
    * Les coordonnées de dessin pour centrer l'image dans le panneau. 
    */
-  int drawX;
+  private int drawX;
 
   /**
    * La coordonnée de dessin verticale pour centrer l'image dans le panneau. 
    */
-  int drawY;
+  private int drawY;
 
   /** L'image source à dessiner. */
   private BufferedImage image;
