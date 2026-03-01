@@ -11,174 +11,185 @@ import java.awt.image.BufferedImage;
  * @author Rayan Bisson, Michel Tran, Emmanuel Srivastava-Tiamzon
  */
 public class ConverterFrame extends JFrame {
-	
-	/** L'image source à afficher dans le panneau central. */
-	private BufferedImage bufferedImage;
-	/** La table des fréquences associée à l'image. */
-	private FrequencyTable frequencyTable;
 
-	/** Le gestionnaire de mise en page pour l'affichage alterné des grilles de couleurs. */
-	private CardLayout cardLayout;
+  /** L'image source à afficher dans le panneau central. */
+  private BufferedImage bufferedImage;
+  /** La table des fréquences associée à l'image. */
+  private FrequencyTable frequencyTable;
 
-	/** Le conteneur principal des différentes grilles de couleurs. */
-	private JPanel cardsContainer;
+  /** Le gestionnaire de mise en page pour l'affichage alterné des grilles de couleurs. */
+  private CardLayout cardLayout;
 
-	/** Le bouton permettant d'afficher la table du canal rouge. */
-	private JButton btnRed;
+  /** Le conteneur principal des différentes grilles de couleurs. */
+  private JPanel cardsContainer;
 
-	/** Le bouton permettant d'afficher la table du canal vert. */
-	private JButton btnGreen;
+  /** Le bouton permettant d'afficher la table du canal rouge. */
+  private JButton btnRed;
 
-	/** Le bouton permettant d'afficher la table du canal bleu. */
-	private JButton btnBlue;
+  /** Le bouton permettant d'afficher la table du canal vert. */
+  private JButton btnGreen;
 
-	/**
-	 * Constructeur de la classe <code>ConverterFrame</code>.
-	 * Initialise et assemble tous les composants graphiques de la fenêtre de conversion.
-	 * @param bufferedImage L'image source à afficher.
-	 * @param frequencyTable La table des fréquences calculées pour l'image.
-	 * @param red La table des codes (initiaux et canoniques) pour le canal rouge.
-	 * @param green La table des codes (initiaux et canoniques) pour le canal vert.
-	 * @param blue La table des codes (initiaux et canoniques) pour le canal bleu.
-	 */
-	public ConverterFrame(BufferedImage bufferedImage, FrequencyTable frequencyTable, CodeTable red, CodeTable green, CodeTable blue) {
-		super("Convertisseur pif");
-		
-		BorderLayout borderLayout = new BorderLayout();
-		this.setLayout(borderLayout);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  /** Le bouton permettant d'afficher la table du canal bleu. */
+  private JButton btnBlue;
 
-		this.bufferedImage = bufferedImage;
-		this.frequencyTable = frequencyTable;
+  /**
+   * Constructeur de la classe <code>ConverterFrame</code>.
+   * Initialise et assemble tous les composants graphiques de la fenêtre de conversion.
+   * @param bufferedImage L'image source à afficher.
+   * @param frequencyTable La table des fréquences calculées pour l'image.
+   * @param red La table des codes (initiaux et canoniques) pour le canal rouge.
+   * @param green La table des codes (initiaux et canoniques) pour le canal vert.
+   * @param blue La table des codes (initiaux et canoniques) pour le canal bleu.
+   * @param filename le nom du fichier qui va ressortir
+   */
+  public ConverterFrame(BufferedImage bufferedImage, 
+      FrequencyTable frequencyTable, 
+      CodeTable red, 
+      CodeTable green, 
+      CodeTable blue,
+      String filename) {
+    super("Convertisseur pif");
 
-		ImagePanel imgPanel = new ImagePanel(this.bufferedImage);
-		this.add(imgPanel, BorderLayout.CENTER);
+    BorderLayout borderLayout = new BorderLayout();
+    this.setLayout(borderLayout);
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JPanel rightPanel = new JPanel(new BorderLayout());
-		rightPanel.setPreferredSize(new Dimension(450,0));
+    this.bufferedImage = bufferedImage;
+    this.frequencyTable = frequencyTable;
 
-		JPanel navPanel = new JPanel();
-		this.btnRed = new JButton("Rouge");
-		this.btnGreen = new JButton("Vert");
-		this.btnBlue = new JButton("Bleu");
-		navPanel.add(this.btnRed);
-		navPanel.add(this.btnGreen);
-		navPanel.add(this.btnBlue);
+    ImagePanel imgPanel = new ImagePanel(this.bufferedImage);
+    this.add(imgPanel, BorderLayout.CENTER);
 
-		this.cardLayout = new CardLayout();
-		this.cardsContainer = new JPanel(this.cardLayout);
+    JPanel rightPanel = new JPanel(new BorderLayout());
+    rightPanel.setPreferredSize(new Dimension(450,0));
 
-		this.cardsContainer.add(createColorGrid(0, this.frequencyTable, red), "ROUGE");
-		this.cardsContainer.add(createColorGrid(1, this.frequencyTable, green), "VERT");
-		this.cardsContainer.add(createColorGrid(2, this.frequencyTable, blue), "BLEU");
+    JPanel navPanel = new JPanel();
+    this.btnRed = new JButton("Rouge");
+    this.btnGreen = new JButton("Vert");
+    this.btnBlue = new JButton("Bleu");
+    navPanel.add(this.btnRed);
+    navPanel.add(this.btnGreen);
+    navPanel.add(this.btnBlue);
 
-		rightPanel.add(navPanel, BorderLayout.NORTH);
-		rightPanel.add(this.cardsContainer, BorderLayout.CENTER);
+    this.cardLayout = new CardLayout();
+    this.cardsContainer = new JPanel(this.cardLayout);
 
-		this.add(rightPanel, BorderLayout.EAST);
+    this.cardsContainer.add(createColorGrid(0, this.frequencyTable, red), "ROUGE");
+    this.cardsContainer.add(createColorGrid(1, this.frequencyTable, green), "VERT");
+    this.cardsContainer.add(createColorGrid(2, this.frequencyTable, blue), "BLEU");
 
-		int maxWidth = 1200; 
-		int maxHeight = 800;
-		int imgWidth = this.bufferedImage.getWidth();
-		int imgHeight = this.bufferedImage.getHeight();
+    rightPanel.add(navPanel, BorderLayout.NORTH);
+    rightPanel.add(this.cardsContainer, BorderLayout.CENTER);
 
-		int idealWidth = imgWidth + 450 + 20; //On ajoute 450 Pour le tableau à droite
-		int idealHeight = imgHeight + 40;
+    JButton writeButton = new JButton("Écrire le fichier PIF");
+    writeButton.addActionListener(new WriteFileListener(
+          filename, red, green, blue, this.bufferedImage
+          ));
+    rightPanel.add(writeButton, BorderLayout.SOUTH);
+    this.add(rightPanel, BorderLayout.EAST);
 
-		this.setSize(Math.min(idealWidth, maxWidth), Math.min(idealHeight, maxHeight));
-		this.setLocationRelativeTo(null);
+    int maxWidth = 1200; 
+    int maxHeight = 800;
+    int imgWidth = this.bufferedImage.getWidth();
+    int imgHeight = this.bufferedImage.getHeight();
 
-		this.setVisible(true);
-	}
+    int idealWidth = imgWidth + 450 + 20; //On ajoute 450 Pour le tableau à droite
+    int idealHeight = imgHeight + 40;
 
-	/**
-	 * Méthode utilitaire privée pour créer une grille affichant les données d'un canal de couleur.
-	 * @param colorIndex L'index de la couleur (0 = Rouge, 1 = Vert, 2 = Bleu).
-	 * @param frequencyTable La table contenant les fréquences.
-	 * @param codeTable La table contenant les codes initiaux et canoniques.
-	 * @return Un panneau défilant contenant la grille de données formatée.
-	 */
-	private JScrollPane createColorGrid(int colorIndex, FrequencyTable frequencyTable, CodeTable codeTable) {
-		JPanel gridPanel = new JPanel(new GridLayout(0,4,5,2));
+    this.setSize(Math.min(idealWidth, maxWidth), Math.min(idealHeight, maxHeight));
+    this.setLocationRelativeTo(null);
 
-		gridPanel.add(new JLabel("Valeur"));
-		gridPanel.add(new JLabel("Fréquence"));
-		gridPanel.add(new JLabel("Code Initial"));
-		gridPanel.add(new JLabel("Canonique"));
+    this.setVisible(true);
+  }
 
-		for(int i = 0; i < 256; i++) {
-			gridPanel.add(new JLabel(String.valueOf(i)));
+  /**
+   * Méthode utilitaire privée pour créer une grille affichant les données d'un canal de couleur.
+   * @param colorIndex L'index de la couleur (0 = Rouge, 1 = Vert, 2 = Bleu).
+   * @param frequencyTable La table contenant les fréquences.
+   * @param codeTable La table contenant les codes initiaux et canoniques.
+   * @return Un panneau défilant contenant la grille de données formatée.
+   */
+  private JScrollPane createColorGrid(int colorIndex, FrequencyTable frequencyTable, CodeTable codeTable) {
+    JPanel gridPanel = new JPanel(new GridLayout(0,4,5,2));
 
-			int freq = 0;
-			if(colorIndex == 0) {
-				freq = frequencyTable.getRed(i);
-			} else if(colorIndex == 1) {
-				freq = frequencyTable.getGreen(i);
-			} else if(colorIndex == 2) {
-				freq = frequencyTable.getBlue(i);
-			}
+    gridPanel.add(new JLabel("Valeur"));
+    gridPanel.add(new JLabel("Fréquence"));
+    gridPanel.add(new JLabel("Code Initial"));
+    gridPanel.add(new JLabel("Canonique"));
 
-			gridPanel.add(new JLabel(String.valueOf(freq)));
+    for(int i = 0; i < 256; i++) {
+      gridPanel.add(new JLabel(String.valueOf(i)));
 
-			Code initial = codeTable.getHashMap().get(i);
-			if(initial != null) {
-				gridPanel.add(new JLabel(initial.toString()));
-			} else {
-				gridPanel.add(new JLabel(""));
-			}
+      int freq = 0;
+      if(colorIndex == 0) {
+        freq = frequencyTable.getRed(i);
+      } else if(colorIndex == 1) {
+        freq = frequencyTable.getGreen(i);
+      } else if(colorIndex == 2) {
+        freq = frequencyTable.getBlue(i);
+      }
 
-      
+      gridPanel.add(new JLabel(String.valueOf(freq)));
 
-			Code canonique = codeTable.getCanonical().get(i);
-			if(canonique != null) {
-				gridPanel.add(new JLabel(canonique.toString()));
-			} else {
-				gridPanel.add(new JLabel(""));
-			}
-		}
-		JScrollPane temp = new JScrollPane(gridPanel);
-		temp.getVerticalScrollBar().setUnitIncrement(500);
-		return temp;
-	}
+      Code initial = codeTable.getHashMap().get(i);
+      if(initial != null) {
+        gridPanel.add(new JLabel(initial.toString()));
+      } else {
+        gridPanel.add(new JLabel(""));
+      }
 
-	/**
-	 * Cette méthode est un getter pour le bouton rouge.
-	 * @return Le JButton rouge.
-	 */
-	public JButton getBtnRed() {
-		return this.btnRed;
-	}
 
-	/**
-	 * Cette méthode est un getter pour le bouton vert.
-	 * @return Le JButton vert.
-	 */
-	public JButton getBtnGreen() {
-		return this.btnGreen;
-	}
 
-	/**
-	 * Cette méthode est un getter pour le bouton bleu.
-	 * @return Le JButton bleu.
-	 */
-	public JButton getBtnBlue() {
-		return this.btnBlue;
-	}
+      Code canonique = codeTable.getCanonical().get(i);
+      if(canonique != null) {
+        gridPanel.add(new JLabel(canonique.toString()));
+      } else {
+        gridPanel.add(new JLabel(""));
+      }
+    }
+    JScrollPane temp = new JScrollPane(gridPanel);
+    temp.getVerticalScrollBar().setUnitIncrement(500);
+    return temp;
+  }
 
-	/**
-	 * Cette méthode est un getter pour le cardLayout mise en place dans cette classe.
-	 * @return le cardLayout mise en place dans cette classe.
-	 */
-	public CardLayout getCardLayout() {
-		return this.cardLayout;
-	}
+  /**
+   * Cette méthode est un getter pour le bouton rouge.
+   * @return Le JButton rouge.
+   */
+  public JButton getBtnRed() {
+    return this.btnRed;
+  }
 
-	/**
-	 * Cette méthode est un getter pour le JPanel de cardsContainer.
-	 * @return Le JPanel qui représente l'attribut cardsContainer.
-	 */
-	public JPanel getCardsContainer() {
-		return this.cardsContainer;
-	}
+  /**
+   * Cette méthode est un getter pour le bouton vert.
+   * @return Le JButton vert.
+   */
+  public JButton getBtnGreen() {
+    return this.btnGreen;
+  }
+
+  /**
+   * Cette méthode est un getter pour le bouton bleu.
+   * @return Le JButton bleu.
+   */
+  public JButton getBtnBlue() {
+    return this.btnBlue;
+  }
+
+  /**
+   * Cette méthode est un getter pour le cardLayout mise en place dans cette classe.
+   * @return le cardLayout mise en place dans cette classe.
+   */
+  public CardLayout getCardLayout() {
+    return this.cardLayout;
+  }
+
+  /**
+   * Cette méthode est un getter pour le JPanel de cardsContainer.
+   * @return Le JPanel qui représente l'attribut cardsContainer.
+   */
+  public JPanel getCardsContainer() {
+    return this.cardsContainer;
+  }
 
 }

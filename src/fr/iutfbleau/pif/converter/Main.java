@@ -99,16 +99,7 @@ public class Main{
       bluetable.toCanonical();
       //System.out.println(bluetable);
 
-
-      Writer.writeFile(filename,
-          redtable.getHashMap(),
-          greentable.getHashMap(),
-          bluetable.getHashMap(),
-          myImage.getImage().getHeight(),
-          myImage.getImage().getWidth(),
-          myImage.getImage());
-
-      ConverterFrame frame = new ConverterFrame(myImage.getImage(), table, redtable, greentable, bluetable);
+      ConverterFrame frame = new ConverterFrame(myImage.getImage(), table, redtable, greentable, bluetable, filename);
       ConverterController controller = new ConverterController(frame);
 
     } else {

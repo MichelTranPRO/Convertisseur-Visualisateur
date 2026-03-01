@@ -2,13 +2,6 @@
 JC = javac
 JE = java
 
-COMSRC = src/fr/iutfbleau/pif/
-# COMSRC = common src = src files in common between converter and visualizer
-
-COMBLD = build/fr/iutfbleau/pif/
-# COMBLD = common files build
-
-
 
 CVSRC = src/fr/iutfbleau/pif/converter/
 # CVSRC = converter src
@@ -40,17 +33,18 @@ all: build converter visualizer
 
 
 
-# Manual compilation of the common files between converter and visualizer 
-
-
-
-
-
 # Manual compilation of the converter files
+#
+MAIN_CLASSES = ${CVBLD}FrequencyTable.class \
+	${CVBLD}ImageReader.class \
+	${CVBLD}HuffmanTree.class \
+	${CVBLD}CodeTable.class \
+	${CVBLD}Code.class \
+	${CVBLD}ConverterController.class \
+	${CVBLD}ConverterFrame.class
 
-${CVBLD}Main.class: ${CVSRC}Main.java ${CVBLD}FrequencyTable.class ${CVBLD}ImageReader.class ${CVBLD}HuffmanTree.class ${CVBLD}CodeTable.class ${CVBLD}Code.class ${CVBLD}Writer.class
+${CVBLD}Main.class: ${CVSRC}Main.java ${MAIN_CLASSES}
 	${JC} ${JCFLAGS} $<
-
 
 ${CVBLD}FrequencyTable.class: ${CVSRC}FrequencyTable.java
 	${JC} ${JCFLAGS} $<
@@ -60,7 +54,7 @@ ${CVBLD}ImageReader.class: ${CVSRC}ImageReader.java
 
 ${CVBLD}HuffmanTree.class: ${CVSRC}HuffmanTree.java ${CVBLD}Node.class
 	${JC} ${JCFLAGS} $<
-	
+
 ${CVBLD}Node.class: ${CVSRC}Node.java
 	${JC} ${JCFLAGS} $<
 
@@ -75,6 +69,16 @@ ${CVBLD}EntryComparator.class: ${CVSRC}EntryComparator.java ${CVBLD}Code.class
 
 ${CVBLD}Writer.class: ${CVSRC}Writer.java
 	${JC} ${JCFLAGS} $<
+
+${CVBLD}WriteFileListener.class: ${CVSRC}WriteFileListener.java ${CVBLD}Writer.class
+	${JC} ${JCFLAGS} $<
+
+${CVBLD}ConverterController.class: ${CVSRC}ConverterController.java 
+	${JC} ${JCFLAGS} $<
+
+${CVBLD}ConverterFrame.class: ${CVSRC}ConverterFrame.java ${CVBLD}Writer.class
+	${JC} ${JCFLAGS} $<
+
 
 
 # Manual compilation of the visualizer files
@@ -103,10 +107,10 @@ ${VZBLD}ImageVisualizer.class: ${VZSRC}ImageVisualizer.java ${VZBLD}ControllerMo
 
 # jar archives
 converter: ${CVBLD}Main.class
-	jar cvfe converter.jar fr.iutfbleau.pif.converter.Main -C ${CVBLD} .
+	jar cvfe converter.jar fr.iutfbleau.pif.converter.Main -C build/ fr/iutfbleau/pif/converter
 
 visualizer: ${VZBLD}Main.class
-	jar cvfe visualizer.jar fr.iutfbleau.pif.visualizer.Main -C ${VZBLD} .
+	jar cvfe visualizer.jar fr.iutfbleau.pif.visualizer.Main -C build/ fr/iutfbleau/pif/visualizer
 
 
 # Programs execution
