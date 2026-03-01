@@ -1,24 +1,51 @@
-# Primitive Image Format (PIF)
+# Projet PIF (SAE 3.2) 📸
+Le projet **PIF** est une suite d'outils composée d'un **convertisseur** d'images et d'un **visualisateur**. Ce projet a été réalisé dans le cadre de la **SAÉ 3.2** à l'IUT de Fontainebleau. Il permet de manipuler un format d'image spécifique (.pif) en utilisant des algorithmes de compression (Huffman) et des interfaces graphiques en Java.
 
-<p>Notre projet consiste à créer deux programmes qui se complémentent.</p>
+## Description du projet
+Le projet se divise en deux applications distinctes :
+1. **Converter** : Transforme des images standards en fichiers au format `.pif` en utilisant une table de fréquences et un arbre de Huffman pour optimiser le stockage.
+2. **Visualizer** : Permet d'ouvrir, d'afficher et de manipuler (zoom/déplacement) les images au format `.pif`.
 
-## **Le convertisseur**
-<p>Ce premier programme nous permet, avec un fichier passé en argument de la ligne de commande avec l'exécution du programme, de le convertir en un fichier au format ".pif".</p>
-<p>Pour plus de détails, aller voir le rapport.</p>
-
-## **Le visualisateur**
-<p>Comme son nom l'indique, ce programme nous permet de visualiser un fichier .pif avec des déplacements possibles avec souris.</p>
-
-
-### **Les commandes**
-Les commandes liées à la totalité de ce projet sont :
-
-1. La compilation
-<br>
-Les commandes pour la compilation des deux programmes sont les suivantes :
-<br>
-`make converter.jar`
-<br>
+## Structure du projet
 ```
-make 
+.
+├── src/        // Code source Java organisé par packages
+│   └── fr/iutfbleau/pif/
+│       ├── converter/    // Convertisseur
+│       └── visualizer/   // Visualisateur
+├── res/        // Ressources : Images de test, diagrammes et rapport du projet
+├── build/      // Fichiers compilés (.class)
+├── doc/        // Documentation Javadoc - généré après commande
+├── Makefile    // Fichier Makefile
+└── README.md   // Fichier markdown de présentation pour ce projet
 ```
+## Compilation convertisseur
+```bash
+make converter # convertisseur
+make visualizer # visualisateur
+```
+## Exécution du programme
+Voici les commandes pour exécuter les programmes, la spécification du fichier n'est pas obligatoire.  
+```bash
+make runconv file=".res/example.png" # convertisseur
+make runvisu file="./res/example.pif"  # visualisateur
+```
+## Création de la documentation javadoc
+```bash
+make javadoc
+```
+
+## Nettoyage des fichiers compilés
+```bash
+make clean
+```
+
+## Rapport
+Le rapport du projet est disponible dans le dossier `res`, ainsi que les diagrammes de classe
+
+## Auteurs
+Ce projet a été réalisé dans le cadre d'une situation d'apprentissage et d'évaluation au sein de la formation de BUT informatique à Fontainebleau dans un but d'apprentissage uniquement. Les auteurs sont :
+
+- [Michel TRAN](https://grond.iut-fbleau.fr/tranm/)
+- [Rayan BISSON](https://grond.iut-fbleau.fr/bissonr/)
+- [Emmanuel SRIVASTAVA-TIAMZON](https://grond.iut-fbleau.fr/srivasta/)
