@@ -75,13 +75,13 @@ public class Main{
       //System.out.println(bluetable);
 
 
-      //FileWriter.writeFile(filename,
-      //    redtable.getHashMap(),
-      //  greentable.getHashMap(),
-      //bluetable.getHashMap(),
-      //myImage.getHeight(),
-      //myImage.getWidth(),
-      //myImage.getImage());
+      Writer.writeFile(filename,
+          redtable.getHashMap(),
+          greentable.getHashMap(),
+          bluetable.getHashMap(),
+          myImage.getImage().getHeight(),
+          myImage.getImage().getWidth(),
+          myImage.getImage());
 
       ConverterFrame frame = new ConverterFrame(myImage.getImage(), table, redtable, greentable, bluetable);
       ConverterController controller = new ConverterController(frame);

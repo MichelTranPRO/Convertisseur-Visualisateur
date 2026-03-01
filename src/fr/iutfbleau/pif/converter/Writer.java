@@ -1,10 +1,10 @@
 package fr.iutfbleau.pif.converter;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 import java.awt.image.BufferedImage;
+import java.io.FileOutputStream;
 
 public class Writer{
   /**
@@ -19,68 +19,126 @@ public class Writer{
       int height,
       int width,
       BufferedImage img){
-/**
-    short headheight = Integer.shortValue(height);
-    short headwidth = Integer.shortValue(width);
+
+    try(FileOutputStream fos = new FileOutputStream(name + ".pif")){
+
+      fos.write((short) height);
+      fos.write((short) width);
 
 
-    byte[] red = new byte[256];
 
-    //On vérifie si chaque valeur est dans notre hashmap
-    for(Integer i = 0; i < 256 ; i++){
-      if(redtable.containsKey(i)){
-        red[i] = redtable.getValue(i).getLength(); // Si elle est dedans on ajoute sa length
-      } else{
-        red[i] = 0; // Sinon on met 0
+      for(int i = 0; i < 256 ; i++){
+        if(redtable.containsKey(i)){
+          fos.write(redtable.get(i).getLength());
+        } else{
+          fos.write(0);
+        }
       }
-    }
 
 
-    byte[] green = new byte[256];
-
-    //On vérifie si chaque valeur est dans notre hashmap
-    for(Integer i = 0; i < 256 ; i++){
-      if(greentable.containsKey(i)){
-        green[i] = greentable.getValue(i).getLength(); // Si elle est dedans on ajoute sa length
-      } else{
-        green[i] = 0; // Sinon on met 0
+      for(int i = 0; i < 256 ; i++){
+        if(greentable.containsKey(i)){
+          fos.write(greentable.get(i).getLength());
+        } else{
+          fos.write(0);
+        }
       }
-    }
 
 
-    byte[] blue = new byte[256];
-
-    //On vérifie si chaque valeur est dans notre hashmap
-    for(Integer i = 0; i < 256 ; i++){
-      if(bluetable.containsKey(i)){
-        blue[i] = bluetable.getValue(i).getLength(); // Si elle est dedans on ajoute sa length
-      } else{
-        blue[i] = 0; // Sinon on met 0
+      for(int i = 0; i < 256 ; i++){
+        if(bluetable.containsKey(i)){
+          fos.write(bluetable.get(i).getLength());
+        } else{
+          fos.write(0);
+        }
       }
-    }
 
 
-    String pixels = "";
-    for(int x = 0; x < height; x++){
-      for(int y = 0; y < width; y++){
-        int pixel = image.getRGB(x, y);
+      ArrayList<byte[]> segments = new ArrayList<>();
 
-        int redp = (pixel >> 16) & 0xFF; // Décalage à droite puis suppression de la partie non intéressante puis on garde que le premier octet
-        int greenp = (pixel >> 8) & 0xFF;
-        int bluep = pixel & 0xFF;
+      int size = 1000;
+
+      byte[] buffer = new byte[size];
+      segments.add(buffer);
+
+      int currentByte = 0;
+      int bitCount = 0;
+      int index = 0;
+
+      for (int x = 0; x < height; x++) {
+        for (int y = 0; y < width; y++) {
+
+          int pixel = img.getRGB(x, y);
+
+          int[] values = {
+            (pixel >> 16) & 0xFF,
+            (pixel >> 8) & 0xFF,
+            pixel & 0xFF
+          };
+
+          Code[] tables = {
+            redtable.get(values[0]),
+            greentable.get(values[1]),
+            bluetable.get(values[2])
+          };
+
+          for (Code code : tables) {
+
+            int bits = code.getBits();
+            int length = code.getLength();
+
+            // On parcours les bits un par un
+            for (int i = length - 1; i >= 0; i--) {
+
+              currentByte <<= 1;                 // On décale à gauche
+              currentByte |= (bits >> i) & 1;    // On ajoute le nouveau bit
+              bitCount++;
+
+              if (bitCount == 8) {
+
+                if (index >= buffer.length) {
+                  buffer = new byte[size];
+                  segments.add(buffer);
+                  index = 0;
+                }
+
+                buffer[index++] = (byte) currentByte;
+                currentByte = 0;
+                bitCount = 0;
+              }
+            }
+          }
+        }
       }
-    }
-    */
 
+      // Pour ce qui reste à la fin
+      if (bitCount > 0) {
+        currentByte <<= (8 - bitCount);
 
-    try {
-      FileWriter myWriter = new FileWriter(name + ".pif");
-      myWriter.write("Files in Java might be tricky, but it is fun enough!");
-      myWriter.close();
-      System.out.println("Successfully wrote to the file.");
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
+        if (index >= buffer.length) {
+          buffer = new byte[size];
+          segments.add(buffer);
+          index = 0;
+        }
+
+        buffer[index++] = (byte) currentByte;
+      }
+
+      // On écrit tout dans le fichier
+      for (int i = 0; i < segments.size(); i++) {
+
+        byte[] segment = segments.get(i);
+
+        if (i == segments.size() - 1) {
+          // Dernier segment → écrire seulement la partie remplie
+          fos.write(segment, 0, index);
+        } else {
+          // Segments pleins
+          fos.write(segment);
+        }
+      }
+    } catch(IOException e){
+      System.out.println("Problème avec l'ouverture du fichier sortie " + e);
     }
   }
 }
