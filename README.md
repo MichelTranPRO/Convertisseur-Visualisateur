@@ -1,4 +1,4 @@
-# Projet PIF (SAE 3.2) 📸
+# Projet PIF 2026
 Le projet **PIF** est une suite d'outils composée d'un **convertisseur** d'images et d'un **visualisateur**. Ce projet a été réalisé dans le cadre de la **SAÉ 3.2** à l'IUT de Fontainebleau. Il permet de manipuler un format d'image spécifique (.pif) en utilisant des algorithmes de compression (Huffman) et des interfaces graphiques en Java.
 
 ## Description du projet
